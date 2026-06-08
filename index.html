@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Die dunkle Seite des Mondes - Orell Füssli Display</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0d0d0f;
+      --night: #1a1a2e;
+      --deep-night: #0a0a18;
+      --parchment: #f5f0e8;
+      --gold: #C9A84C;
+      --gold-light: #e8d5a3;
+      --accent-red: #7c3d2f;
+      --muted: #6b6055;
+      --moon-glow: #dde5f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #111;
+      color: var(--parchment);
+      overflow: hidden;
+    }
+
+    .stage-shell {
+      position: relative;
+      width: min(100vw, 56.25vh);
+      height: min(100vh, 177.7778vw);
+      max-width: 1080px;
+      max-height: 1920px;
+      overflow: hidden;
+      background: var(--ink);
+    }
+
+    #display {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: var(--ink);
+      transform-origin: top left;
+      transform: scale(var(--stage-scale, 1));
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      width: 1080px;
+      height: 1920px;
+      padding: 80px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .slide.active,
+    .slide.exiting,
+    .slide.entering {
+      display: block;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .fade-in { animation: fadeIn 1100ms ease forwards; }
+    .fade-out { animation: fadeOut 1100ms ease forwards; }
+    .fade-in-slow { animation: fadeIn 1400ms ease forwards; }
+    .fade-out-slow { animation: fadeOut 1400ms ease forwards; }
+    .wipe-in { animation: wipeIn 1200ms ease-in-out forwards; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes wipeIn { from { opacity: 1; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+
+    .night-bg {
+      background:
+        radial-gradient(circle at 52% 36%, rgba(201, 168, 76, 0.08), transparent 35%),
+        linear-gradient(180deg, var(--deep-night), var(--night));
+    }
+
+    .forest-bg {
+      background:
+        linear-gradient(rgba(10, 30, 10, 0.3), rgba(10, 30, 10, 0.3)),
+        linear-gradient(180deg, var(--night), var(--ink));
+    }
+
+    .ink-bg {
+      background:
+        radial-gradient(circle at center, rgba(201, 168, 76, 0.04), transparent 42%),
+        var(--ink);
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: twinkle var(--dur) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.12; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .moon {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 0 40px 15px rgba(180, 200, 230, 0.3);
+      animation: moonFloat 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .slide > .moon {
+      display: none;
+    }
+
+    .slide-1 > .moon {
+      display: block;
+    }
+
+    .shared-moon {
+      display: none;
+    }
+
+    @keyframes sharedMoonDrift {
+      0%, 100% { transform: translateY(-10px) scale(1); }
+      50% { transform: translateY(10px) scale(1.03); }
+    }
+
+    .moon.large {
+      width: 170px;
+      height: 170px;
+      box-shadow: 0 0 60px 22px rgba(180, 200, 230, 0.3);
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(-8px); }
+      50% { transform: translateY(8px); }
+    }
+
+    .forest {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1080px;
+      height: 250px;
+      z-index: 1;
+    }
+
+    .road-scene {
+      position: absolute;
+      left: 0;
+      bottom: 92px;
+      width: 1080px;
+      height: 310px;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.96;
+    }
+
+    .road-scene::before {
+      content: "";
+      position: absolute;
+      left: 210px;
+      bottom: 30px;
+      width: 660px;
+      height: 210px;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(232, 213, 163, 0.16), transparent 56%),
+        linear-gradient(180deg, rgba(18, 20, 28, 0.1), rgba(6, 7, 11, 0.88));
+      clip-path: polygon(39% 0, 61% 0, 100% 100%, 0 100%);
+    }
+
+    .road-line {
+      position: absolute;
+      left: 50%;
+      bottom: 96px;
+      width: 16px;
+      height: 168px;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(232, 213, 163, 0) 0 22px,
+        rgba(232, 213, 163, 0.9) 22px 54px,
+        rgba(232, 213, 163, 0) 54px 82px
+      );
+      transform-origin: 50% 100%;
+      transform: translateX(-50%) perspective(260px) rotateX(64deg);
+      filter: drop-shadow(0 0 10px rgba(201, 168, 76, 0.35));
+      animation: roadPulse 0.85s linear infinite;
+    }
+
+    @keyframes roadPulse {
+      from { background-position-y: -82px; }
+      to { background-position-y: 0; }
+    }
+
+    .car {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 520px;
+      height: 118px;
+      transform: translateX(-50%);
+      animation: cockpitFloat 4.5s ease-in-out infinite;
+    }
+
+    @keyframes cockpitFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0) rotate(-0.4deg); }
+      50% { transform: translateX(-50%) translateY(5px) rotate(0.4deg); }
+    }
+
+    .car-body {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 92px;
+      background:
+        radial-gradient(ellipse at 50% 0, rgba(201, 168, 76, 0.12), transparent 42%),
+        linear-gradient(180deg, #15151d, #050507 72%);
+      border: 2px solid rgba(201, 168, 76, 0.22);
+      border-bottom: 0;
+      border-radius: 180px 180px 0 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5), inset 0 16px 30px rgba(255, 255, 255, 0.03);
+    }
+
+    .car-body::before {
+      content: "";
+      position: absolute;
+      left: 184px;
+      top: 24px;
+      width: 150px;
+      height: 42px;
+      border: 8px solid rgba(201, 168, 76, 0.2);
+      border-bottom: 0;
+      border-radius: 90px 90px 0 0;
+      box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.7);
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: 46px;
+      width: 78px;
+      height: 10px;
+      background: rgba(201, 168, 76, 0.28);
+      border-radius: 999px;
+      filter: blur(0.5px);
+      animation: dashBlink 1.5s ease-in-out infinite;
+    }
+
+    .wheel.left { left: 92px; }
+    .wheel.right { right: 92px; animation-delay: 0.35s; }
+
+    @keyframes dashBlink {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.8; }
+    }
+
+    .headlight {
+      position: absolute;
+      left: 50%;
+      bottom: 88px;
+      width: 700px;
+      height: 115px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(232, 213, 163, 0.18), rgba(232, 213, 163, 0.06) 42%, transparent 70%);
+      transform: translateX(-50%);
+      filter: blur(4px);
+      opacity: 0.75;
+      animation: windshieldGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes windshieldGlow {
+      0%, 100% { opacity: 0.48; transform: translateX(-50%) scaleX(0.96); }
+      50% { opacity: 0.78; transform: translateX(-50%) scaleX(1.02); }
+    }
+
+    .motion-tree {
+      position: absolute;
+      bottom: 128px;
+      width: 70px;
+      height: 110px;
+      opacity: 0.24;
+      animation: treeParallax 7s linear infinite;
+    }
+
+    .motion-tree.t1 { left: 110px; animation-delay: -2s; }
+    .motion-tree.t2 { left: 870px; animation-delay: -5s; transform: scale(0.85); }
+
+    .motion-tree::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      bottom: 0;
+      width: 12px;
+      height: 54px;
+      background: #07070d;
+    }
+
+    .motion-tree::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 38px;
+      width: 70px;
+      height: 72px;
+      background: #0b0b14;
+      clip-path: polygon(50% 0, 12% 52%, 30% 52%, 0 100%, 100% 100%, 70% 52%, 88% 52%);
+    }
+
+    @keyframes treeParallax {
+      0%, 100% { transform: translateX(-8px); }
+      50% { transform: translateX(12px); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .brand-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "DM Mono", monospace;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+    }
+
+    .brand-strip .left { font-size: 24px; }
+    .brand-strip .right { font-size: 18px; opacity: 0.6; }
+
+    .mono-label {
+      font-family: "DM Mono", monospace;
+      font-size: 24px;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .slide-active .fade-up {
+      animation: fadeUp 900ms ease forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-1 .hero {
+      margin-top: 510px;
+      max-width: 850px;
+    }
+
+    .author {
+      font-family: "DM Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .title-line {
+      font-family: "Playfair Display", serif;
+      font-size: 112px;
+      font-style: italic;
+      font-weight: 600;
+      line-height: 0.95;
+    }
+
+    .title-line.gold {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .rule {
+      width: 200px;
+      height: 2px;
+      background: var(--gold);
+      margin: 40px 0;
+    }
+
+    .subtitle {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 36px;
+      font-style: italic;
+      line-height: 1.25;
+      opacity: 0.8;
+    }
+
+    .bottom-note {
+      position: absolute;
+      left: 80px;
+      bottom: 110px;
+      font-family: "DM Mono", monospace;
+      font-size: 20px;
+      color: var(--gold);
+      opacity: 0.5;
+      z-index: 3;
+    }
+
+    .slide-2 .content,
+    .slide-3 .content {
+      padding-top: 60px;
+    }
+
+    .section-title {
+      margin: 28px 0 60px;
+      font-family: "Playfair Display", serif;
+      font-size: 72px;
+      font-style: italic;
+      color: var(--parchment);
+    }
+
+    .mood-slide {
+      min-height: 1380px;
+      display: grid;
+      align-content: center;
+      gap: 42px;
+      max-width: 860px;
+    }
+
+    .mood-kicker {
+      font-family: "DM Mono", monospace;
+      font-size: 24px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+    }
+
+    .mood-quote {
+      font-family: "Playfair Display", serif;
+      font-size: 102px;
+      line-height: 0.98;
+      font-style: italic;
+      color: var(--parchment);
+      text-wrap: balance;
+    }
+
+    .mood-quote span {
+      display: block;
+      color: var(--gold);
+    }
+
+    .mood-copy {
+      max-width: 740px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 40px;
+      line-height: 1.25;
+      color: rgba(245, 240, 232, 0.78);
+      font-style: italic;
+    }
+
+    .info-slide {
+      display: none !important;
+    }
+
+    .phase-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 24px;
+      margin-bottom: 20px;
+      padding: 24px 32px;
+      border-left: 3px solid var(--gold);
+      background: rgba(245, 240, 232, 0.035);
+    }
+
+    .phase-num {
+      font-family: "Playfair Display", serif;
+      font-size: 80px;
+      font-style: italic;
+      color: rgba(201, 168, 76, 0.15);
+      line-height: 1;
+    }
+
+    .phase-title {
+      margin-bottom: 8px;
+      font-family: "Playfair Display", serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .phase-text {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      line-height: 1.18;
+      opacity: 0.8;
+    }
+
+    .constellation {
+      width: 100%;
+      height: auto;
+      margin-top: -20px;
+    }
+
+    .node-text {
+      font-family: "DM Mono", monospace;
+      fill: var(--parchment);
+      text-anchor: middle;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .node-sub {
+      font-family: "Cormorant Garamond", serif;
+      fill: rgba(245, 240, 232, 0.75);
+      text-anchor: middle;
+      font-size: 23px;
+      font-style: italic;
+    }
+
+    .line-label,
+    .symbol-label {
+      font-family: "DM Mono", monospace;
+      font-size: 18px;
+      fill: rgba(232, 213, 163, 0.85);
+      text-anchor: middle;
+    }
+
+    .pulse-node {
+      transform-origin: 540px 750px;
+      animation: pulseNode 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseNode {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .constellation-caption {
+      margin: -30px auto 0;
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .caption-rule {
+      width: 300px;
+      height: 2px;
+      margin: 0 auto 24px;
+      background: var(--gold);
+    }
+
+    .slide-4 {
+      padding: 0 80px 80px;
+      background: var(--parchment);
+      color: var(--ink);
+    }
+
+    .paper-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.09;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+    }
+
+    .top-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      font-family: "DM Mono", monospace;
+      font-size: 26px;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+    }
+
+    .interpretations {
+      position: relative;
+      z-index: 2;
+      padding-top: 170px;
+    }
+
+    .interpretation-card {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 56px;
+      padding: 34px 0 34px 32px;
+      border-left: 6px solid var(--gold);
+      color: var(--ink);
+    }
+
+    .interpretation-card.red { border-left-color: var(--accent-red); }
+    .interpretation-card.blue { border-left-color: #5070a0; }
+
+    .icon-box {
+      width: 100px;
+      height: 100px;
+      display: grid;
+      place-items: center;
+    }
+
+    .card-title {
+      margin-bottom: 18px;
+      font-family: "Playfair Display", serif;
+      font-size: 52px;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .card-title.red { color: var(--accent-red); }
+    .card-title.blue { color: #3a5070; }
+
+    .card-body {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .tag {
+      margin-top: 18px;
+      font-family: "DM Mono", monospace;
+      font-size: 18px;
+      color: var(--gold);
+    }
+
+    .pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 7px 14px;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      font-family: "DM Mono", monospace;
+      font-size: 16px;
+      color: var(--gold);
+    }
+
+    .slide-5 .moon {
+      display: none;
+    }
+
+    .cover-wrap {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      justify-items: center;
+      padding-top: 260px;
+    }
+
+    .book-cover-img {
+      width: 400px;
+      height: auto;
+      filter: drop-shadow(20px 24px 40px rgba(0, 0, 0, 0.62));
+      transform: rotate(-2deg);
+      animation: bookBob 4s ease-in-out infinite;
+    }
+
+    .old-cover-img {
+      display: none;
+    }
+
+    @keyframes bookBob {
+      0%, 100% { transform: rotate(-2deg) translateY(0); }
+      50% { transform: rotate(-2deg) translateY(-8px); }
+    }
+
+    .price {
+      margin-top: 70px;
+      font-family: "Playfair Display", serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    .book-meta {
+      margin-top: 10px;
+      font-family: "DM Mono", monospace;
+      font-size: 22px;
+      color: rgba(245, 240, 232, 0.6);
+      text-align: center;
+    }
+
+    .store-strip {
+      position: absolute;
+      left: 0;
+      bottom: 78px;
+      width: 100%;
+      padding: 54px 80px 48px;
+      background: rgba(0, 0, 0, 0.38);
+      text-align: center;
+      z-index: 3;
+    }
+
+    .available {
+      font-family: "DM Mono", monospace;
+      font-size: 20px;
+      color: rgba(201, 168, 76, 0.5);
+      letter-spacing: 0.28em;
+    }
+
+    .store {
+      margin-top: 12px;
+      font-family: "Playfair Display", serif;
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .store-sub {
+      margin-top: 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      font-style: italic;
+      color: rgba(245, 240, 232, 0.6);
+    }
+
+    .qr-panel {
+      position: absolute;
+      right: 82px;
+      bottom: 330px;
+      z-index: 4;
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+      padding: 18px;
+      background: rgba(245, 240, 232, 0.94);
+      color: var(--ink);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .qr-panel svg {
+      width: 174px;
+      height: 174px;
+      display: block;
+    }
+
+    .qr-panel .qr-text {
+      max-width: 180px;
+      text-align: center;
+      font-family: "DM Mono", monospace;
+      font-size: 15px;
+      line-height: 1.25;
+      letter-spacing: 0.08em;
+    }
+
+    .dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 32px;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(245, 240, 232, 0.25);
+      transition: background 250ms ease, transform 250ms ease;
+    }
+
+    .dot.active {
+      background: var(--gold);
+      transform: scale(1.25);
+    }
+
+    .progress-track {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      z-index: 10;
+      background: rgba(245, 240, 232, 0.12);
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      animation: progressFill 8s linear infinite;
+    }
+
+    @keyframes progressFill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage-shell">
+  <main id="display" aria-label="Digitale Buchwerbung für Die dunkle Seite des Mondes">
+    <section class="slide slide-1 night-bg active slide-active">
+      <div class="stars"></div>
+      <svg class="moon" viewBox="0 0 120 120" style="top: 170px; right: 145px;">
+        <defs><radialGradient id="moonGrad1" cx="35%" cy="35%"><stop offset="0" stop-color="#f0e8d0"/><stop offset="1" stop-color="#dde5f0"/></radialGradient></defs>
+        <circle cx="60" cy="60" r="60" fill="url(#moonGrad1)"/><ellipse cx="82" cy="60" rx="43" ry="58" fill="#0a0a14" opacity="0.72"/>
+      </svg>
+      <svg class="forest" viewBox="0 0 1080 250" preserveAspectRatio="none">
+        <path d="M0 190 L30 120 L58 190 L86 95 L120 190 L160 80 L196 190 L220 110 L260 190 L292 65 L330 190 L365 100 L400 190 L430 85 L462 190 L505 72 L548 190 L580 116 L620 190 L650 90 L690 190 L725 70 L760 190 L800 105 L840 190 L875 85 L912 190 L950 110 L990 190 L1024 78 L1080 190 V250 H0 Z" fill="#12122a"/>
+        <path d="M0 215 L24 150 L50 215 L88 132 L118 215 L150 145 L186 215 L230 120 L268 215 L300 138 L340 215 L380 118 L425 215 L470 142 L510 215 L545 128 L590 215 L635 136 L675 215 L720 115 L765 215 L804 144 L850 215 L895 125 L935 215 L970 150 L1015 215 L1050 135 L1080 215 V250 H0 Z" fill="#0d0d1a"/>
+      </svg>
+      <div class="content">
+        <div class="brand-strip fade-up" style="--delay: 200ms;"><span class="left">ORELL FÜSSLI · BUCHHANDLUNG</span><span class="right">EMPFEHLUNG · JUNI 2026</span></div>
+        <div class="hero">
+          <div class="author fade-up" style="--delay: 400ms;">MARTIN SUTER</div>
+          <div class="title-line fade-up" style="--delay: 600ms;">Die dunkle Seite</div>
+          <div class="title-line gold fade-up" style="--delay: 800ms;">des Mondes</div>
+          <div class="rule fade-up" style="--delay: 1000ms;"></div>
+          <div class="subtitle fade-up" style="--delay: 1200ms;">Ein Roman über Identität, Kontrolle und die dunkle Seite des Menschen.</div>
+        </div>
+      </div>
+      <div class="bottom-note">Diogenes Verlag · 2000</div>
+    </section>
+
+    <section class="slide slide-2 forest-bg">
+      <div class="stars"></div>
+      <svg class="forest" viewBox="0 0 1080 250" preserveAspectRatio="none">
+        <path d="M0 190 L42 92 L70 190 L112 76 L150 190 L190 118 L230 190 L275 58 L325 190 L370 94 L415 190 L462 74 L510 190 L560 104 L610 190 L655 68 L705 190 L760 90 L808 190 L850 118 L900 190 L940 70 L992 190 L1035 106 L1080 190 V250 H0 Z" fill="#12122a"/>
+        <path d="M0 220 L40 150 L80 220 L120 132 L160 220 L208 142 L254 220 L300 116 L348 220 L402 148 L452 220 L500 124 L552 220 L610 145 L668 220 L720 118 L770 220 L820 146 L874 220 L930 120 L986 220 L1030 148 L1080 220 V250 H0 Z" fill="#0d0d1a"/>
+      </svg>
+      <div class="road-scene" aria-hidden="true">
+        <div class="motion-tree t1"></div>
+        <div class="motion-tree t2"></div>
+        <div class="road-line"></div>
+        <div class="car"><div class="headlight"></div><div class="car-body"></div><div class="wheel left"></div><div class="wheel right"></div></div>
+      </div>
+      <div class="content">
+        <div class="mood-slide">
+          <div class="mood-kicker fade-up" style="--delay: 180ms;">PSYCHOLOGISCHER THRILLER</div>
+          <div class="mood-quote fade-up" style="--delay: 380ms;">Ein Mann verliert die Kontrolle.<span>Und findet den Wald.</span></div>
+          <div class="mood-copy fade-up" style="--delay: 760ms;">Martin Suter erzählt vom Riss in einer perfekten Fassade: elegant, dunkel, gefährlich ruhig.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-3 ink-bg info-slide">
+      <div class="stars subtle"></div>
+      <div class="content">
+        <div class="mono-label fade-up">FIGURENKONSTELLATION</div>
+        <svg class="constellation fade-up" style="--delay: 220ms;" viewBox="0 0 1080 1500">
+          <defs>
+            <radialGradient id="blankGrad"><stop offset="0" stop-color="#1a1a2e"/><stop offset="1" stop-color="#0d0d0f"/></radialGradient>
+          </defs>
+          <line x1="220" y1="380" x2="540" y2="750" stroke="#4a9080" stroke-width="3" stroke-dasharray="12 12"/><text class="line-label" x="330" y="555">Ehe / Kontrolle</text>
+          <line x1="860" y1="380" x2="540" y2="750" stroke="#C9A84C" stroke-width="3"/><text class="line-label" x="750" y="555">Verführung / Erleuchtung</text>
+          <line x1="860" y1="1120" x2="540" y2="750" stroke="#8b2020" stroke-width="3"/><text class="line-label" x="770" y="940">Rache / Bedrohung</text>
+          <line x1="220" y1="1120" x2="540" y2="750" stroke="#5070a0" stroke-width="3" stroke-dasharray="4 12"/><text class="line-label" x="315" y="940">Therapie / Realität</text>
+          <g><circle cx="220" cy="380" r="85" fill="#1a2e2a" stroke="#4a9080" stroke-width="3"/><text class="node-text" x="220" y="370">EVELYNE</text><text class="node-text" x="220" y="400">VOGT</text><text class="node-sub" x="220" y="430">Ehefrau · Ordnung</text><text class="symbol-label" x="220" y="500">Vogt = Aufseher</text></g>
+          <g><circle cx="860" cy="380" r="85" fill="#2e1a0a" stroke="#C9A84C" stroke-width="3"/><text class="node-text" x="860" y="370">LUCILLE</text><text class="node-text" x="860" y="400">ROTH</text><text class="node-sub" x="860" y="430">die Leuchtende</text><text class="symbol-label" x="860" y="500">Licht · rot · Neuanfang</text></g>
+          <g><circle cx="860" cy="1120" r="85" fill="#2e0a0a" stroke="#8b2020" stroke-width="3"/><text class="node-text" x="860" y="1110">PIUS</text><text class="node-text" x="860" y="1140">OTT</text><text class="node-sub" x="860" y="1170">Antagonist</text><text class="symbol-label" x="860" y="1240">Pius = fromm · Ott = Besitz</text></g>
+          <g><circle cx="220" cy="1120" r="85" fill="#1a1a2e" stroke="#5070a0" stroke-width="3"/><text class="node-text" x="220" y="1110">DR.</text><text class="node-text" x="220" y="1140">STÄUBLI</text><text class="node-sub" x="220" y="1170">Stimme der Vernunft</text></g>
+          <g class="pulse-node"><circle cx="540" cy="750" r="130" fill="url(#blankGrad)" stroke="#C9A84C" stroke-width="3"/><text class="node-text" x="540" y="740" font-size="30">URS BLANK</text><text class="node-sub" x="540" y="785" font-size="28">Protagonist</text></g>
+        </svg>
+        <div class="caption-rule fade-up" style="--delay: 420ms;"></div>
+        <div class="constellation-caption fade-up" style="--delay: 520ms;">Namensymbolik: Jeder Name trägt die Figur.</div>
+      </div>
+    </section>
+
+    <section class="slide slide-4 info-slide">
+      <div class="paper-noise"></div>
+      <div class="top-bar">INTERPRETATIONSANSÄTZE</div>
+      <div class="interpretations">
+        <article class="interpretation-card fade-up" style="--delay: 160ms;">
+          <div class="icon-box"><svg viewBox="0 0 100 100" width="90"><path d="M50 8 L28 50 H40 L20 88 H80 L60 50 H72 Z" fill="#0d0d0f"/></svg></div>
+          <div><div class="card-title">Romantik & Zivilisationsflucht</div><div class="card-body">Blanks Rückzug in den Wald spiegelt das romantische Motiv der Zivilisationsflucht. Die Natur ist kein Idyll - sie entblösst das Verdrängte. Bilder wie «Tannen wie Algen» und «Treibgut auf den Wellen» zeigen die romantische Verschmelzung von Mensch und Natur.</div><div class="tag">Kapitel 12 · S. 113-120</div></div>
+        </article>
+        <article class="interpretation-card red fade-up" style="--delay: 320ms;">
+          <div class="icon-box"><svg viewBox="0 0 100 100" width="90"><circle cx="38" cy="50" r="28" fill="none" stroke="#7c3d2f" stroke-width="5"/><circle cx="62" cy="50" r="28" fill="none" stroke="#7c3d2f" stroke-width="5"/></svg></div>
+          <div><div class="card-title red">Doppelgängermotiv & Identität</div><div class="card-body">Blank trägt zwei Identitäten: den kontrollierten Anwalt und das triebgesteuerte Naturwesen. Die Psilocybin-Erfahrung hebt die Grenze auf. Sein Name - blank, leer, unbeschrieben - zeigt: Er hat keine feste Identität.</div><div class="tag">Namenssymbolik · Urs = Bär</div></div>
+        </article>
+        <article class="interpretation-card blue fade-up" style="--delay: 480ms;">
+          <div class="icon-box"><svg viewBox="0 0 100 100" width="90"><path d="M15 70 Q50 20 85 70" fill="none" stroke="#5070a0" stroke-width="6"/><path d="M20 82 H80" stroke="#5070a0" stroke-width="6"/></svg></div>
+          <div><div class="card-title blue">Stilistik & Sprachliche Mittel</div><div class="card-body">Suter setzt Wiederholungen gezielt ein: «Immer schneller» und «runter, runter, runter» erzeugen Tempo und Kontrollverlust. Metaphern wie «Blank war ein Meteor» und religiöse Symbole wie «Lux aeterna» geben dem Trip spirituelle Tiefe.</div><div class="pills"><span class="pill">Metapher</span><span class="pill">Wiederholung</span><span class="pill">Lichtsymbolik</span><span class="pill">Religiosität</span></div><div class="tag">S. 115-118</div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide slide-5 ink-bg">
+      <div class="stars"></div>
+      <svg class="moon large" viewBox="0 0 120 120">
+        <defs><radialGradient id="moonGrad5" cx="35%" cy="35%"><stop offset="0" stop-color="#f0e8d0"/><stop offset="1" stop-color="#dde5f0"/></radialGradient></defs>
+        <circle cx="60" cy="60" r="60" fill="url(#moonGrad5)"/><ellipse cx="82" cy="60" rx="43" ry="58" fill="#0a0a14" opacity="0.72"/>
+      </svg>
+      <svg class="forest" viewBox="0 0 1080 250" preserveAspectRatio="none">
+        <path d="M0 190 L35 90 L75 190 L116 74 L160 190 L205 112 L250 190 L290 62 L340 190 L382 96 L430 190 L472 82 L522 190 L570 118 L615 190 L660 72 L710 190 L758 96 L805 190 L848 118 L895 190 L935 76 L990 190 L1038 108 L1080 190 V250 H0 Z" fill="#12122a"/>
+        <path d="M0 218 L45 150 L84 218 L130 130 L175 218 L220 148 L270 218 L310 112 L360 218 L415 145 L465 218 L510 126 L565 218 L615 144 L670 218 L720 120 L770 218 L820 144 L878 218 L925 124 L982 218 L1030 148 L1080 218 V250 H0 Z" fill="#0d0d1a"/>
+      </svg>
+      <div class="cover-wrap">
+        <img class="book-cover-img" width="400" height="637" alt="Buchcover: Martin Suter, Die dunkle Seite des Mondes, Roman · Diogenes" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22628%22%20height%3D%221000%22%20viewBox%3D%220%200%20628%201000%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22cloth%22%20width%3D%2212%22%20height%3D%2212%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Crect%20width%3D%2212%22%20height%3D%2212%22%20fill%3D%22%2300aebc%22%2F%3E%3Cpath%20d%3D%22M0%202H12M0%206H12M0%2010H12M2%200V12M6%200V12M10%200V12%22%20stroke%3D%22%23008393%22%20stroke-width%3D%220.7%22%20opacity%3D%220.42%22%2F%3E%3C%2Fpattern%3E%3Cfilter%20id%3D%22shadow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeDropShadow%20dx%3D%220%22%20dy%3D%222%22%20stdDeviation%3D%222%22%20flood-color%3D%22%23000%22%20flood-opacity%3D%22.18%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D%22628%22%20height%3D%221000%22%20fill%3D%22url(%23cloth)%22%2F%3E%3Crect%20x%3D%2294%22%20y%3D%2290%22%20width%3D%22442%22%20height%3D%22770%22%20fill%3D%22%23fbfaf0%22%20filter%3D%22url(%23shadow)%22%2F%3E%3Crect%20x%3D%22130%22%20y%3D%22122%22%20width%3D%22370%22%20height%3D%22702%22%20rx%3D%2242%22%20ry%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%232b2a24%22%20stroke-width%3D%221.5%22%2F%3E%3Crect%20x%3D%22166%22%20y%3D%22157%22%20width%3D%22298%22%20height%3D%22360%22%20fill%3D%22%23efe6cf%22%2F%3E%3Cg%20transform%3D%22translate(166%20157)%22%3E%3Crect%20width%3D%22298%22%20height%3D%22360%22%20fill%3D%22%231b6570%22%2F%3E%3Cpath%20d%3D%22M0%20309%20C28%20252%2057%20276%2086%20241%20C110%20215%20151%20238%20174%20205%20C210%20154%20251%20201%20298%20160%20V360%20H0Z%22%20fill%3D%22%237ac764%22%2F%3E%3Cpath%20d%3D%22M0%20270%20C52%20216%2068%20238%20112%20205%20C165%20166%20215%20190%20298%20122%20V360%20H0Z%22%20fill%3D%22%233b8a6e%22%20opacity%3D%22.78%22%2F%3E%3Cpath%20d%3D%22M18%200%20L56%20360%20H82%20L48%200Z%22%20fill%3D%22%23594764%22%2F%3E%3Cpath%20d%3D%22M238%200%20L198%20360%20H224%20L270%200Z%22%20fill%3D%22%23664b65%22%2F%3E%3Cpath%20d%3D%22M86%200%20L84%20245%20M126%200%20L118%20250%20M166%200%20L160%20248%20M208%200%20L198%20246%22%20stroke%3D%22%23173839%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M65%2026%20C118%2058%20142%206%20184%2038%20C232%2076%20252%2018%20298%2032%20V0%20H65Z%22%20fill%3D%22%23de6f91%22%2F%3E%3Cpath%20d%3D%22M58%2030%20C94%2072%2077%20110%20103%20154%20C128%20198%20111%20234%20128%20266%22%20stroke%3D%22%23b49946%22%20stroke-width%3D%2211%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M164%208%20C188%2066%20177%20100%20194%20142%20C210%20184%20194%20220%20212%20262%22%20stroke%3D%22%23938537%22%20stroke-width%3D%2212%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M20%20352%20C58%20320%2082%20342%20110%20309%20C145%20270%20180%20327%20225%20286%20C249%20264%20276%20274%20298%20250%20V360%20H20Z%22%20fill%3D%22%23a6db76%22%2F%3E%3Cpath%20d%3D%22M32%20338%20C54%20302%2092%20321%20120%20318%20M166%20332%20C180%20300%20210%20303%20234%20326%20M52%20354%20C75%20344%2088%20348%20100%20360%22%20stroke%3D%22%233f7d50%22%20stroke-width%3D%224%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22315%22%20y%3D%22572%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2256%22%20font-weight%3D%22700%22%20fill%3D%22%2323221d%22%3EMartin%20Suter%3C%2Ftext%3E%3Ctext%20x%3D%22315%22%20y%3D%22635%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2252%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20fill%3D%22%2323221d%22%3EDie%20dunkle%3C%2Ftext%3E%3Ctext%20x%3D%22315%22%20y%3D%22688%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2252%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20fill%3D%22%2323221d%22%3ESeite%20des%3C%2Ftext%3E%3Ctext%20x%3D%22315%22%20y%3D%22741%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2252%22%20font-style%3D%22italic%22%20fill%3D%22%2323221d%22%3EMondes%3C%2Ftext%3E%3Ctext%20x%3D%22315%22%20y%3D%22812%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2229%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20fill%3D%22%2323221d%22%3ERoman%20%26%23183%3B%20Diogenes%3C%2Ftext%3E%3C%2Fsvg%3E">
+        <img class="book-cover-img old-cover-img" width="400" height="637" alt="Buchcover: Martin Suter, Die dunkle Seite des Mondes, Roman · Diogenes" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='628' height='1000' viewBox='0 0 628 1000'%3E%3Cdefs%3E%3Cpattern id='cloth' width='12' height='12' patternUnits='userSpaceOnUse'%3E%3Crect width='12' height='12' fill='%2300aebc'/%3E%3Cpath d='M0 2H12M0 6H12M0 10H12M2 0V12M6 0V12M10 0V12' stroke='%23008393' stroke-width='0.7' opacity='0.42'/%3E%3C/pattern%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='120%25' height='120%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='2' flood-color='%23000' flood-opacity='.18'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='628' height='1000' fill='url(%23cloth)'/%3E%3Crect x='94' y='90' width='442' height='770' fill='%23fbfaf0' filter='url(%23shadow)'/%3E%3Crect x='130' y='122' width='370' height='702' rx='42' ry='42' fill='none' stroke='%232b2a24' stroke-width='1.5'/%3E%3Crect x='166' y='157' width='298' height='360' fill='%23efe6cf'/%3E%3Cg transform='translate(166 157)'%3E%3Crect width='298' height='360' fill='%231b6570'/%3E%3Cpath d='M0 309 C28 252 57 276 86 241 C110 215 151 238 174 205 C210 154 251 201 298 160 V360 H0Z' fill='%237ac764'/%3E%3Cpath d='M0 270 C52 216 68 238 112 205 C165 166 215 190 298 122 V360 H0Z' fill='%233b8a6e' opacity='.78'/%3E%3Cpath d='M18 0 L56 360 H82 L48 0Z' fill='%23594764'/%3E%3Cpath d='M238 0 L198 360 H224 L270 0Z' fill='%23664b65'/%3E%3Cpath d='M86 0 L84 245 M126 0 L118 250 M166 0 L160 248 M208 0 L198 246' stroke='%23173839' stroke-width='8'/%3E%3Cpath d='M65 26 C118 58 142 6 184 38 C232 76 252 18 298 32 V0 H65Z' fill='%23de6f91'/%3E%3Cpath d='M58 30 C94 72 77 110 103 154 C128 198 111 234 128 266' stroke='%23b49946' stroke-width='11' fill='none'/%3E%3Cpath d='M164 8 C188 66 177 100 194 142 C210 184 194 220 212 262' stroke='%23938537' stroke-width='12' fill='none'/%3E%3Cpath d='M20 352 C58 320 82 342 110 309 C145 270 180 327 225 286 C249 264 276 274 298 250 V360 H20Z' fill='%23a6db76'/%3E%3Cpath d='M32 338 C54 302 92 321 120 318 M166 332 C180 300 210 303 234 326 M52 354 C75 344 88 348 100 360' stroke='%233f7d50' stroke-width='4' fill='none'/%3E%3C/g%3E%3Ctext x='157' y='572' font-family='Georgia,serif' font-size='64' font-weight='700' fill='%2323221d'%3EMartin Suter%3C/text%3E%3Ctext x='192' y='625' font-family='Georgia,serif' font-size='58' font-style='italic' font-weight='700' fill='%2323221d'%3EDie dunkle%3C/text%3E%3Ctext x='213' y='674' font-family='Georgia,serif' font-size='58' font-style='italic' font-weight='700' fill='%2323221d'%3ESeite des%3C/text%3E%3Ctext x='238' y='724' font-family='Georgia,serif' font-size='58' font-style='italic' fill='%2323221d'%3EMondes%3C/text%3E%3Ctext x='210' y='812' font-family='Georgia,serif' font-size='31' font-style='italic' font-weight='700' fill='%2323221d'%3ERoman · Diogenes%3C/text%3E%3C/svg%3E">
+        <div class="price">CHF 19.90</div>
+        <div class="book-meta">Taschenbuch · Diogenes Verlag</div>
+      </div>
+      <a class="qr-panel" href="details.html" aria-label="Mehr Informationen zu Die dunkle Seite des Mondes">
+        <svg viewBox="0 0 174 174" role="img" aria-label="QR-Code zu details.html"><rect width="174" height="174" fill="#fff"/><g fill="#0d0d0f"><rect x="24" y="24" width="6" height="6"/><rect x="30" y="24" width="6" height="6"/><rect x="36" y="24" width="6" height="6"/><rect x="42" y="24" width="6" height="6"/><rect x="48" y="24" width="6" height="6"/><rect x="54" y="24" width="6" height="6"/><rect x="60" y="24" width="6" height="6"/><rect x="72" y="24" width="6" height="6"/><rect x="84" y="24" width="6" height="6"/><rect x="96" y="24" width="6" height="6"/><rect x="108" y="24" width="6" height="6"/><rect x="114" y="24" width="6" height="6"/><rect x="120" y="24" width="6" height="6"/><rect x="126" y="24" width="6" height="6"/><rect x="132" y="24" width="6" height="6"/><rect x="138" y="24" width="6" height="6"/><rect x="144" y="24" width="6" height="6"/><rect x="24" y="30" width="6" height="6"/><rect x="60" y="30" width="6" height="6"/><rect x="72" y="30" width="6" height="6"/><rect x="96" y="30" width="6" height="6"/><rect x="108" y="30" width="6" height="6"/><rect x="144" y="30" width="6" height="6"/><rect x="24" y="36" width="6" height="6"/><rect x="36" y="36" width="6" height="6"/><rect x="42" y="36" width="6" height="6"/><rect x="48" y="36" width="6" height="6"/><rect x="60" y="36" width="6" height="6"/><rect x="72" y="36" width="6" height="6"/><rect x="84" y="36" width="6" height="6"/><rect x="108" y="36" width="6" height="6"/><rect x="120" y="36" width="6" height="6"/><rect x="126" y="36" width="6" height="6"/><rect x="132" y="36" width="6" height="6"/><rect x="144" y="36" width="6" height="6"/><rect x="24" y="42" width="6" height="6"/><rect x="36" y="42" width="6" height="6"/><rect x="42" y="42" width="6" height="6"/><rect x="48" y="42" width="6" height="6"/><rect x="60" y="42" width="6" height="6"/><rect x="96" y="42" width="6" height="6"/><rect x="108" y="42" width="6" height="6"/><rect x="120" y="42" width="6" height="6"/><rect x="126" y="42" width="6" height="6"/><rect x="132" y="42" width="6" height="6"/><rect x="144" y="42" width="6" height="6"/><rect x="24" y="48" width="6" height="6"/><rect x="36" y="48" width="6" height="6"/><rect x="42" y="48" width="6" height="6"/><rect x="48" y="48" width="6" height="6"/><rect x="60" y="48" width="6" height="6"/><rect x="72" y="48" width="6" height="6"/><rect x="78" y="48" width="6" height="6"/><rect x="90" y="48" width="6" height="6"/><rect x="96" y="48" width="6" height="6"/><rect x="108" y="48" width="6" height="6"/><rect x="120" y="48" width="6" height="6"/><rect x="126" y="48" width="6" height="6"/><rect x="132" y="48" width="6" height="6"/><rect x="144" y="48" width="6" height="6"/><rect x="24" y="54" width="6" height="6"/><rect x="60" y="54" width="6" height="6"/><rect x="72" y="54" width="6" height="6"/><rect x="78" y="54" width="6" height="6"/><rect x="84" y="54" width="6" height="6"/><rect x="90" y="54" width="6" height="6"/><rect x="108" y="54" width="6" height="6"/><rect x="144" y="54" width="6" height="6"/><rect x="24" y="60" width="6" height="6"/><rect x="30" y="60" width="6" height="6"/><rect x="36" y="60" width="6" height="6"/><rect x="42" y="60" width="6" height="6"/><rect x="48" y="60" width="6" height="6"/><rect x="54" y="60" width="6" height="6"/><rect x="60" y="60" width="6" height="6"/><rect x="72" y="60" width="6" height="6"/><rect x="84" y="60" width="6" height="6"/><rect x="96" y="60" width="6" height="6"/><rect x="108" y="60" width="6" height="6"/><rect x="114" y="60" width="6" height="6"/><rect x="120" y="60" width="6" height="6"/><rect x="126" y="60" width="6" height="6"/><rect x="132" y="60" width="6" height="6"/><rect x="138" y="60" width="6" height="6"/><rect x="144" y="60" width="6" height="6"/><rect x="72" y="66" width="6" height="6"/><rect x="84" y="66" width="6" height="6"/><rect x="36" y="72" width="6" height="6"/><rect x="60" y="72" width="6" height="6"/><rect x="66" y="72" width="6" height="6"/><rect x="72" y="72" width="6" height="6"/><rect x="84" y="72" width="6" height="6"/><rect x="96" y="72" width="6" height="6"/><rect x="108" y="72" width="6" height="6"/><rect x="114" y="72" width="6" height="6"/><rect x="120" y="72" width="6" height="6"/><rect x="132" y="72" width="6" height="6"/><rect x="138" y="72" width="6" height="6"/><rect x="144" y="72" width="6" height="6"/><rect x="24" y="78" width="6" height="6"/><rect x="30" y="78" width="6" height="6"/><rect x="54" y="78" width="6" height="6"/><rect x="78" y="78" width="6" height="6"/><rect x="84" y="78" width="6" height="6"/><rect x="90" y="78" width="6" height="6"/><rect x="108" y="78" width="6" height="6"/><rect x="114" y="78" width="6" height="6"/><rect x="120" y="78" width="6" height="6"/><rect x="138" y="78" width="6" height="6"/><rect x="144" y="78" width="6" height="6"/><rect x="24" y="84" width="6" height="6"/><rect x="30" y="84" width="6" height="6"/><rect x="42" y="84" width="6" height="6"/><rect x="60" y="84" width="6" height="6"/><rect x="72" y="84" width="6" height="6"/><rect x="78" y="84" width="6" height="6"/><rect x="90" y="84" width="6" height="6"/><rect x="120" y="84" width="6" height="6"/><rect x="126" y="84" width="6" height="6"/><rect x="132" y="84" width="6" height="6"/><rect x="138" y="84" width="6" height="6"/><rect x="144" y="84" width="6" height="6"/><rect x="42" y="90" width="6" height="6"/><rect x="54" y="90" width="6" height="6"/><rect x="66" y="90" width="6" height="6"/><rect x="72" y="90" width="6" height="6"/><rect x="84" y="90" width="6" height="6"/><rect x="90" y="90" width="6" height="6"/><rect x="96" y="90" width="6" height="6"/><rect x="120" y="90" width="6" height="6"/><rect x="138" y="90" width="6" height="6"/><rect x="24" y="96" width="6" height="6"/><rect x="30" y="96" width="6" height="6"/><rect x="48" y="96" width="6" height="6"/><rect x="60" y="96" width="6" height="6"/><rect x="72" y="96" width="6" height="6"/><rect x="78" y="96" width="6" height="6"/><rect x="84" y="96" width="6" height="6"/><rect x="90" y="96" width="6" height="6"/><rect x="120" y="96" width="6" height="6"/><rect x="126" y="96" width="6" height="6"/><rect x="138" y="96" width="6" height="6"/><rect x="144" y="96" width="6" height="6"/><rect x="72" y="102" width="6" height="6"/><rect x="78" y="102" width="6" height="6"/><rect x="90" y="102" width="6" height="6"/><rect x="102" y="102" width="6" height="6"/><rect x="108" y="102" width="6" height="6"/><rect x="120" y="102" width="6" height="6"/><rect x="138" y="102" width="6" height="6"/><rect x="144" y="102" width="6" height="6"/><rect x="24" y="108" width="6" height="6"/><rect x="30" y="108" width="6" height="6"/><rect x="36" y="108" width="6" height="6"/><rect x="42" y="108" width="6" height="6"/><rect x="48" y="108" width="6" height="6"/><rect x="54" y="108" width="6" height="6"/><rect x="60" y="108" width="6" height="6"/><rect x="72" y="108" width="6" height="6"/><rect x="96" y="108" width="6" height="6"/><rect x="108" y="108" width="6" height="6"/><rect x="114" y="108" width="6" height="6"/><rect x="120" y="108" width="6" height="6"/><rect x="132" y="108" width="6" height="6"/><rect x="138" y="108" width="6" height="6"/><rect x="144" y="108" width="6" height="6"/><rect x="24" y="114" width="6" height="6"/><rect x="60" y="114" width="6" height="6"/><rect x="78" y="114" width="6" height="6"/><rect x="84" y="114" width="6" height="6"/><rect x="90" y="114" width="6" height="6"/><rect x="114" y="114" width="6" height="6"/><rect x="138" y="114" width="6" height="6"/><rect x="24" y="120" width="6" height="6"/><rect x="36" y="120" width="6" height="6"/><rect x="42" y="120" width="6" height="6"/><rect x="48" y="120" width="6" height="6"/><rect x="60" y="120" width="6" height="6"/><rect x="84" y="120" width="6" height="6"/><rect x="90" y="120" width="6" height="6"/><rect x="102" y="120" width="6" height="6"/><rect x="114" y="120" width="6" height="6"/><rect x="138" y="120" width="6" height="6"/><rect x="24" y="126" width="6" height="6"/><rect x="36" y="126" width="6" height="6"/><rect x="42" y="126" width="6" height="6"/><rect x="48" y="126" width="6" height="6"/><rect x="60" y="126" width="6" height="6"/><rect x="90" y="126" width="6" height="6"/><rect x="96" y="126" width="6" height="6"/><rect x="114" y="126" width="6" height="6"/><rect x="120" y="126" width="6" height="6"/><rect x="126" y="126" width="6" height="6"/><rect x="138" y="126" width="6" height="6"/><rect x="24" y="132" width="6" height="6"/><rect x="36" y="132" width="6" height="6"/><rect x="42" y="132" width="6" height="6"/><rect x="48" y="132" width="6" height="6"/><rect x="60" y="132" width="6" height="6"/><rect x="72" y="132" width="6" height="6"/><rect x="78" y="132" width="6" height="6"/><rect x="84" y="132" width="6" height="6"/><rect x="90" y="132" width="6" height="6"/><rect x="96" y="132" width="6" height="6"/><rect x="108" y="132" width="6" height="6"/><rect x="114" y="132" width="6" height="6"/><rect x="120" y="132" width="6" height="6"/><rect x="126" y="132" width="6" height="6"/><rect x="132" y="132" width="6" height="6"/><rect x="144" y="132" width="6" height="6"/><rect x="24" y="138" width="6" height="6"/><rect x="60" y="138" width="6" height="6"/><rect x="84" y="138" width="6" height="6"/><rect x="138" y="138" width="6" height="6"/><rect x="24" y="144" width="6" height="6"/><rect x="30" y="144" width="6" height="6"/><rect x="36" y="144" width="6" height="6"/><rect x="42" y="144" width="6" height="6"/><rect x="48" y="144" width="6" height="6"/><rect x="54" y="144" width="6" height="6"/><rect x="60" y="144" width="6" height="6"/><rect x="84" y="144" width="6" height="6"/><rect x="90" y="144" width="6" height="6"/><rect x="138" y="144" width="6" height="6"/><rect x="144" y="144" width="6" height="6"/></g></svg>
+        <span class="qr-text">MEHR INFOS<br>details.html</span>
+      </a>
+      <div class="store-strip">
+        <div class="available">JETZT ERHÄLTLICH BEI</div>
+        <div class="store">ORELL FÜSSLI</div>
+        <div class="store-sub">Buchhandlung · Schweiz</div>
+      </div>
+    </section>
+
+    <div class="dots" aria-hidden="true"></div>
+    <div class="progress-track" aria-hidden="true"><div class="progress"></div></div>
+  </main>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide:not(.info-slide)")];
+    const transitions = ["fade", "fade", "fade"];
+    const dotsWrap = document.querySelector(".dots");
+    const progress = document.querySelector(".progress");
+    const stageShell = document.querySelector(".stage-shell");
+    const display = document.querySelector("#display");
+    let current = 0;
+
+    function fitStage() {
+      const scale = Math.min(stageShell.clientWidth / 1080, stageShell.clientHeight / 1920);
+      display.style.setProperty("--stage-scale", scale);
+    }
+
+    window.addEventListener("resize", fitStage);
+    fitStage();
+
+    slides.forEach((slide, slideIndex) => {
+      const stars = slide.querySelector(".stars");
+      if (!stars) return;
+      const count = slide.classList.contains("slide-3") ? 42 : 80;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("div");
+        const size = 0.5 + Math.random() * 2.5;
+        star.className = "star";
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 85}%`;
+        star.style.setProperty("--dur", `${2 + Math.random() * 3}s`);
+        star.style.setProperty("--delay", `${Math.random() * 4}s`);
+        stars.appendChild(star);
+      }
+
+      const dot = document.createElement("div");
+      dot.className = `dot${slideIndex === 0 ? " active" : ""}`;
+      dotsWrap.appendChild(dot);
+    });
+
+    function restartProgress() {
+      progress.style.animation = "none";
+      void progress.offsetHeight;
+      progress.style.animation = "progressFill 8s linear infinite";
+    }
+
+    function activateEntry(slide) {
+      slide.classList.remove("slide-active");
+      void slide.offsetWidth;
+      slide.classList.add("slide-active");
+    }
+
+    function advance() {
+      const outgoing = slides[current];
+      const nextIndex = (current + 1) % slides.length;
+      const incoming = slides[nextIndex];
+      const type = transitions[current];
+      const slowReset = current === 4;
+
+      outgoing.className = outgoing.className.replace(/\b(active|entering|exiting|fade-in|fade-out|fade-in-slow|fade-out-slow|wipe-in|slide-active)\b/g, "").replace(/\s+/g, " ").trim();
+      incoming.className = incoming.className.replace(/\b(active|entering|exiting|fade-in|fade-out|fade-in-slow|fade-out-slow|wipe-in|slide-active)\b/g, "").replace(/\s+/g, " ").trim();
+
+      outgoing.classList.add("exiting");
+      incoming.classList.add("entering");
+
+      if (type === "wipe-right") {
+        outgoing.style.opacity = "1";
+        incoming.classList.add("wipe-in");
+      } else {
+        outgoing.classList.add(slowReset ? "fade-out-slow" : "fade-out");
+        incoming.classList.add(slowReset ? "fade-in-slow" : "fade-in");
+      }
+
+      setTimeout(() => {
+        outgoing.classList.remove("exiting", "fade-out", "fade-out-slow");
+        incoming.classList.remove("entering", "fade-in", "fade-in-slow", "wipe-in");
+        incoming.classList.add("active");
+        outgoing.style.opacity = "";
+        current = nextIndex;
+        document.querySelectorAll(".dot").forEach((dot, index) => dot.classList.toggle("active", index === current));
+        activateEntry(incoming);
+        restartProgress();
+      }, slowReset ? 1400 : type === "wipe-right" ? 1200 : 1100);
+    }
+
+    setInterval(advance, 8000);
+  </script>
+</body>
+</html>
