@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Die dunkle Seite des Mondes – Vertiefung</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231E2761'/%3E%3Ccircle cx='46' cy='18' r='12' fill='%23C9A84C'/%3E%3Ccircle cx='51' cy='18' r='12' fill='%231E2761'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='900' fill='white'%3ETZ%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a18'/%3E%3Ccircle cx='46' cy='18' r='12' fill='%23C9A84C'/%3E%3Ccircle cx='51' cy='18' r='12' fill='%230a0a18'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='900' fill='%23f5f0e8'%3ETZ%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -335,31 +335,69 @@
       color: var(--muted);
     }
 
-    .project-credit {
+    .work-status {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: center;
       margin-top: 72px;
-      padding: 24px 0 0;
-      border-top: 1px solid rgba(201,168,76,0.18);
-      font-family: "DM Mono", monospace;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      line-height: 1.8;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.52);
+      padding: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(201,168,76,0.18);
+      background:
+        radial-gradient(circle at top right, rgba(201,168,76,0.12), transparent 46%),
+        rgba(6,6,16,0.86);
+      color: white;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.28);
     }
 
-    .project-credit strong {
-      display: block;
+    .tvz-mark {
+      min-width: 126px;
+      align-self: stretch;
+      display: grid;
+      align-content: center;
+      padding-right: 28px;
+      border-right: 2px solid rgba(201,168,76,0.24);
+    }
+
+    .tvz-logo {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 28px;
+      font-size: 34px;
       font-weight: 900;
       line-height: 1;
-      letter-spacing: 0;
-      text-transform: none;
       color: var(--parchment);
     }
 
-    .project-credit span {
-      color: var(--gold);
+    .tvz-name {
+      margin-top: 9px;
+      font-family: "Cormorant Garamond", serif;
+      color: rgba(245,240,232,0.68);
+      font-size: 15px;
+      line-height: 1.1;
+    }
+
+    .work-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--parchment);
+      line-height: 1.2;
+    }
+
+    .work-subtitle {
+      margin-top: 7px;
+      font-family: "DM Mono", monospace;
+      color: rgba(245,240,232,0.64);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .work-subtitle.coop {
+      color: rgba(201,168,76,0.72);
+      text-transform: none;
+      letter-spacing: 0.02em;
     }
 
     /* ── RESPONSIVE ── */
@@ -369,6 +407,12 @@
       .phase-num { font-size: 52px; }
       .interp-card { padding: 24px 22px; }
       .name-legend { grid-template-columns: 1fr 1fr; }
+      .work-status { grid-template-columns: 1fr; }
+      .tvz-mark {
+        border-right: 0;
+        border-bottom: 2px solid rgba(201,168,76,0.24);
+        padding: 0 0 14px;
+      }
     }
     @media (max-width: 480px) {
       .name-legend { grid-template-columns: 1fr; }
@@ -747,9 +791,16 @@
     </div>
   </section>
 
-  <footer class="project-credit" aria-label="Projektcredit">
-    <strong>TZ</strong>
-    Timothy van Zanten <span>in Kooperation mit</span> Nikolai Anderson
+  <footer class="work-status" aria-label="Projektcredit">
+    <div class="tvz-mark">
+      <div class="tvz-logo">TvZ</div>
+      <div class="tvz-name">Timothy van Zanten</div>
+    </div>
+    <div>
+      <div class="work-title">Die dunkle Seite des Mondes</div>
+      <div class="work-subtitle">Vertiefung · Literaturprojekt · KSA</div>
+      <div class="work-subtitle coop">In Kooperation mit Nikolai Anderson</div>
+    </div>
   </footer>
 
 </main>
