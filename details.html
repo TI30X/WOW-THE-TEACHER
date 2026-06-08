@@ -3,385 +3,755 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mehr zu Die dunkle Seite des Mondes</title>
+  <title>Die dunkle Seite des Mondes – Vertiefung</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231E2761'/%3E%3Ccircle cx='46' cy='18' r='12' fill='%23C9A84C'/%3E%3Ccircle cx='51' cy='18' r='12' fill='%231E2761'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='900' fill='white'%3ETZ%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #0d0d0f;
-      --night: #1a1a2e;
+      --ink:       #0d0d0f;
+      --night:     #1a1a2e;
       --parchment: #f5f0e8;
-      --gold: #C9A84C;
-      --muted: #b8aa98;
-      --teal: #4a9080;
-      --red: #8b2020;
-      --blue: #5070a0;
+      --gold:      #C9A84C;
+      --gold-dim:  #8a6e2e;
+      --muted:     #b8aa98;
+      --teal:      #4a9080;
+      --red:       #8b2020;
+      --blue:      #5070a0;
+      --purple:    #7040a0;
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top right, rgba(201, 168, 76, 0.12), transparent 34rem),
-        linear-gradient(180deg, #080810, var(--ink));
+      background: linear-gradient(180deg, #06060f 0%, #0d0d10 100%);
       color: var(--parchment);
       font-family: "Cormorant Garamond", serif;
     }
 
     main {
-      width: min(1120px, calc(100% - 40px));
+      width: min(1100px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 64px 0 96px;
+      padding: 56px 0 100px;
     }
 
-    a {
-      color: var(--gold);
-      text-decoration: none;
-    }
+    a { color: var(--gold); text-decoration: none; }
 
+    /* ── TOP LINK ── */
     .top-link {
       font-family: "DM Mono", monospace;
-      font-size: 14px;
-      letter-spacing: 0.18em;
+      font-size: 13px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      opacity: 0.8;
+      opacity: 0.75;
     }
+    .top-link:hover { opacity: 1; }
 
+    /* ── HERO ── */
     .hero {
-      padding: 80px 0 64px;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+      padding: 72px 0 60px;
+      border-bottom: 1px solid rgba(201,168,76,0.22);
     }
-
     .kicker {
       font-family: "DM Mono", monospace;
-      font-size: 16px;
-      letter-spacing: 0.28em;
+      font-size: 14px;
+      letter-spacing: 0.3em;
       color: var(--gold);
       text-transform: uppercase;
+      margin-bottom: 20px;
     }
-
     h1 {
-      max-width: 880px;
-      margin: 22px 0 20px;
+      max-width: 900px;
+      margin: 0 0 24px;
       font-family: "Playfair Display", serif;
-      font-size: clamp(56px, 9vw, 112px);
-      line-height: 0.94;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: 0.93;
       font-style: italic;
+      font-weight: 900;
     }
-
+    h1 em { color: var(--gold); font-style: italic; }
     .lead {
-      max-width: 780px;
-      font-size: 34px;
-      line-height: 1.25;
-      color: rgba(245, 240, 232, 0.78);
+      max-width: 760px;
+      font-size: clamp(22px, 2.8vw, 32px);
+      line-height: 1.4;
+      color: rgba(245,240,232,0.76);
       font-style: italic;
+      font-weight: 300;
     }
 
+    /* ── ROAD SCENE ── */
     .road-visual {
-      margin: 48px 0 54px;
+      margin: 52px 0 60px;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 3px;
       line-height: 0;
-      border: 1px solid rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.14);
     }
-
-    .road-scene {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
+    .road-scene { display: block; width: 100%; height: auto; }
     .road-caption {
-      padding: 18px 28px;
-      background: rgba(6,6,16,0.85);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 25px;
+      padding: 20px 30px;
+      background: rgba(6,6,16,0.88);
+      font-size: clamp(18px, 2.2vw, 24px);
       font-style: italic;
-      color: rgba(184,170,152,0.85);
+      color: rgba(184,170,152,0.82);
       text-align: center;
-      line-height: 1.45;
+      line-height: 1.5;
       border-top: 1px solid rgba(201,168,76,0.15);
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin: 54px 0 84px;
-    }
-
-    .card {
-      padding: 26px;
-      border-left: 4px solid var(--gold);
-      background: rgba(245, 240, 232, 0.045);
-    }
-
-    .card h2 {
-      margin: 0 0 14px;
-      font-family: "Playfair Display", serif;
-      font-size: 34px;
-      color: var(--gold);
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.35;
-      color: var(--muted);
-    }
-
+    /* ── SECTION LABELS ── */
     .section-label {
-      margin: 0 0 24px;
       font-family: "DM Mono", monospace;
-      font-size: 16px;
-      letter-spacing: 0.28em;
+      font-size: 13px;
+      letter-spacing: 0.3em;
       color: var(--gold);
       text-transform: uppercase;
+      margin: 0 0 36px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
     }
 
+    /* ── 5 PHASEN ── */
+    .phases { margin: 0 0 80px; }
+    .phase-list { display: flex; flex-direction: column; gap: 0; }
+
+    .phase-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.07);
+      align-items: start;
+    }
+    .phase-item:last-child { border-bottom: none; }
+
+    .phase-num {
+      font-family: "Playfair Display", serif;
+      font-size: 72px;
+      font-style: italic;
+      font-weight: 900;
+      line-height: 0.9;
+      color: rgba(201,168,76,0.18);
+      text-align: right;
+      padding-top: 4px;
+    }
+
+    .phase-body {}
+    .phase-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--parchment);
+      margin: 0 0 10px;
+      line-height: 1.15;
+    }
+    .phase-title .tag {
+      display: inline-block;
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-left: 14px;
+      vertical-align: middle;
+      opacity: 0.8;
+    }
+    .phase-text {
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0;
+    }
+    .phase-quote {
+      margin: 10px 0 0;
+      padding-left: 16px;
+      border-left: 2px solid rgba(201,168,76,0.4);
+      font-style: italic;
+      font-size: clamp(15px, 1.8vw, 19px);
+      color: rgba(201,168,76,0.7);
+    }
+
+    /* Phase accent colours */
+    .phase-item:nth-child(1) .phase-num { color: rgba(201,168,76,0.22); }
+    .phase-item:nth-child(2) .phase-num { color: rgba(74,144,128,0.25); }
+    .phase-item:nth-child(3) .phase-num { color: rgba(139,100,180,0.22); }
+    .phase-item:nth-child(4) .phase-num { color: rgba(120,140,200,0.22); }
+    .phase-item:nth-child(5) .phase-num { color: rgba(139,32,32,0.28); }
+
+    /* ── INTERPRETATIONEN ── */
+    .interpretations { margin: 0 0 80px; }
+    .interp-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .interp-card {
+      padding: 32px 36px;
+      background: rgba(245,240,232,0.03);
+      border: 1px solid rgba(245,240,232,0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .interp-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+    }
+    .interp-card.romantik::before  { background: var(--teal); }
+    .interp-card.doppel::before    { background: var(--gold); }
+    .interp-card.stilistik::before { background: var(--blue); }
+
+    .interp-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-style: italic;
+      margin: 0 0 16px;
+      line-height: 1.2;
+    }
+    .romantik  h3 { color: var(--teal); }
+    .doppel    h3 { color: var(--gold); }
+    .stilistik h3 { color: var(--blue); }
+
+    .interp-card p {
+      font-size: clamp(16px, 1.9vw, 21px);
+      font-weight: 300;
+      line-height: 1.72;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .interp-card p:last-child { margin: 0; }
+
+    .beispiele {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .beispiel-tag {
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      padding: 5px 13px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+    .romantik  .beispiel-tag { color: var(--teal); }
+    .doppel    .beispiel-tag { color: var(--gold); }
+    .stilistik .beispiel-tag { color: var(--blue); }
+
+    /* ── FIGURENKONSTELLATION ── */
+    .constellation-section { margin: 0 0 80px; }
     .constellation-wrap {
-      padding: 28px;
-      background: rgba(245, 240, 232, 0.035);
-      border: 1px solid rgba(201, 168, 76, 0.18);
+      background: rgba(6,6,18,0.6);
+      border: 1px solid rgba(201,168,76,0.16);
+      padding: 8px;
     }
-
     .constellation {
+      display: block;
       width: 100%;
       height: auto;
-      display: block;
     }
-
     .node-name {
       font-family: "DM Mono", monospace;
       fill: var(--parchment);
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 500;
       text-anchor: middle;
+      dominant-baseline: central;
     }
-
+    .node-name-sm {
+      font-family: "DM Mono", monospace;
+      fill: var(--parchment);
+      font-size: 15px;
+      font-weight: 400;
+      text-anchor: middle;
+    }
     .node-role {
       font-family: "Cormorant Garamond", serif;
-      fill: rgba(245, 240, 232, 0.75);
-      font-size: 22px;
+      fill: rgba(245,240,232,0.68);
+      font-size: 18px;
       font-style: italic;
       text-anchor: middle;
     }
-
-    .relation {
+    .rel-label {
       font-family: "DM Mono", monospace;
-      font-size: 17px;
-      fill: var(--gold);
+      font-size: 13px;
+      fill: rgba(201,168,76,0.82);
+      text-anchor: middle;
+    }
+    .rel-label-sm {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      fill: rgba(180,160,120,0.60);
       text-anchor: middle;
     }
 
-    .legend {
+    /* ── NAMENSSYMBOLIK LEGEND ── */
+    .name-legend {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 26px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
     }
+    .name-card {
+      padding: 22px 24px;
+      background: rgba(0,0,0,0.22);
+      border-top: 2px solid transparent;
+    }
+    .name-card.blank   { border-color: var(--gold); }
+    .name-card.lucille { border-color: #c9a84c; }
+    .name-card.evelyne { border-color: var(--teal); }
+    .name-card.staeubli{ border-color: var(--blue); }
+    .name-card.ott     { border-color: var(--red); }
+    .name-card.ich     { border-color: var(--purple); }
 
-    .legend div {
-      padding: 18px 20px;
-      background: rgba(0, 0, 0, 0.18);
-      font-size: 23px;
-      line-height: 1.32;
+    .name-card strong {
+      display: block;
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      margin-bottom: 8px;
+    }
+    .name-card .symbolik {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      opacity: 0.8;
+      display: block;
+      margin-bottom: 9px;
+    }
+    .name-card p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.45;
       color: var(--muted);
     }
 
-    .legend strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--parchment);
+    .project-credit {
+      margin-top: 72px;
+      padding: 24px 0 0;
+      border-top: 1px solid rgba(201,168,76,0.18);
       font-family: "DM Mono", monospace;
-      font-size: 15px;
-      letter-spacing: 0.12em;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      line-height: 1.8;
       text-transform: uppercase;
+      color: rgba(245,240,232,0.52);
     }
 
-    @media (max-width: 760px) {
-      main { width: min(100% - 28px, 1120px); padding-top: 32px; }
-      .grid,
-      .legend { grid-template-columns: 1fr; }
-      .lead { font-size: 28px; }
+    .project-credit strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--parchment);
+    }
+
+    .project-credit span {
+      color: var(--gold);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      main { width: calc(100% - 32px); }
+      .phase-item { grid-template-columns: 56px 1fr; gap: 0 18px; }
+      .phase-num { font-size: 52px; }
+      .interp-card { padding: 24px 22px; }
+      .name-legend { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .name-legend { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <a class="top-link" href="index.html">Zurück zur Anzeige</a>
+<main>
 
-    <section class="hero">
-      <div class="kicker">Martin Suter · Diogenes · Roman</div>
-      <h1>Die dunkle Seite des Mondes</h1>
-      <p class="lead">Urs Blank ist ein erfolgreicher Wirtschaftsanwalt. Nach einem Pilztrip im Wald beginnt sich seine Persönlichkeit zu verändern: Die kontrollierte Oberfläche bricht auf, und etwas Dunkleres tritt hervor.</p>
-    </section>
+  <a class="top-link" href="index.html">← Zurück zur Anzeige</a>
 
-    <section class="road-visual" aria-hidden="true">
-      <svg class="road-scene" viewBox="0 0 1080 560" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="skyG" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stop-color="#050712"/>
-            <stop offset="0.58" stop-color="#08110c"/>
-            <stop offset="1" stop-color="#020305"/>
-          </linearGradient>
-          <linearGradient id="roadG" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stop-color="#0d0d10"/>
-            <stop offset="1" stop-color="#1c1c20"/>
-          </linearGradient>
-          <radialGradient id="haloG" cx="50%" cy="88%" r="50%">
-            <stop offset="0" stop-color="rgba(255,248,195,0.20)"/>
-            <stop offset="1" stop-color="rgba(255,248,195,0)"/>
-          </radialGradient>
-          <radialGradient id="vpG" cx="50%" cy="29.5%" r="16%">
-            <stop offset="0" stop-color="rgba(255,248,195,0.22)"/>
-            <stop offset="1" stop-color="rgba(255,248,195,0)"/>
-          </radialGradient>
-          <filter id="hBlur" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="10"/>
-          </filter>
-          <filter id="sBlur" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="4"/>
-          </filter>
-        </defs>
-        <rect width="1080" height="560" fill="url(#skyG)"/>
-        <circle cx="78" cy="70" r="1.6" fill="#fff" opacity=".72"/>
-        <circle cx="144" cy="114" r="1.2" fill="#fff" opacity=".46"/>
-        <circle cx="268" cy="48" r="1.7" fill="#fff" opacity=".62"/>
-        <circle cx="346" cy="132" r="1.1" fill="#fff" opacity=".5"/>
-        <circle cx="486" cy="76" r="1.5" fill="#fff" opacity=".68"/>
-        <circle cx="602" cy="116" r="1.2" fill="#fff" opacity=".48"/>
-        <circle cx="720" cy="54" r="1.7" fill="#fff" opacity=".72"/>
-        <circle cx="820" cy="128" r="1.1" fill="#fff" opacity=".5"/>
-        <circle cx="944" cy="82" r="1.6" fill="#fff" opacity=".7"/>
-        <circle cx="1010" cy="150" r="1.2" fill="#fff" opacity=".42"/>
-        <circle cx="902" cy="72" r="46" fill="#e9e1c8"/>
-        <circle cx="928" cy="70" r="48" fill="#050712" opacity=".74"/>
-        <path d="M0,560 L195,555 L223,512 L206,476 L238,439 L220,404 L254,364 L238,324 L272,286 L252,248 L292,210 L270,176 L318,140 L272,154 L244,110 L214,160 L184,96 L150,164 L122,126 L96,178 L58,116 L32,170 L0,140 Z" fill="#07140a"/>
-        <path d="M0,560 L174,552 L196,504 L180,470 L210,428 L194,388 L226,346 L206,304 L238,266 L218,226 L250,190 L226,162 L260,126 L218,148 L194,124 L166,170 L142,138 L110,188 L82,144 L52,194 L22,158 L0,196 Z" fill="#0d1e0e" opacity=".6"/>
-        <path d="M1080,560 L885,555 L857,512 L874,476 L842,439 L860,404 L826,364 L842,324 L808,286 L828,248 L788,210 L810,176 L762,140 L808,154 L836,110 L866,160 L896,96 L930,164 L958,126 L984,178 L1022,116 L1048,170 L1080,140 Z" fill="#07140a"/>
-        <path d="M1080,560 L906,552 L884,504 L900,470 L870,428 L886,388 L854,346 L874,304 L842,266 L862,226 L830,190 L854,162 L820,126 L862,148 L886,124 L914,170 L938,138 L970,188 L998,144 L1028,194 L1058,158 L1080,196 Z" fill="#0d1e0e" opacity=".6"/>
-        <polygon points="195,555 885,555 540,165" fill="url(#roadG)"/>
-        <rect width="1080" height="560" fill="url(#haloG)"/>
-        <rect width="1080" height="560" fill="url(#vpG)"/>
-        <line x1="195" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
-        <line x1="885" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
-        <polygon points="536.5,233.2 543.5,233.2 543.7,236.8 536.3,236.8" fill="#e8d070"/>
-        <polygon points="535.1,260.5 544.9,260.5 545.2,265.5 534.8,265.5" fill="#e8d070"/>
-        <polygon points="533.5,291.7 546.5,291.7 546.8,298.3 533.2,298.3" fill="#e8d070"/>
-        <polygon points="531.7,326.7 548.3,326.7 548.7,335.3 531.3,335.3" fill="#e8d070"/>
-        <polygon points="529.7,365.7 550.3,365.7 550.8,376.3 529.2,376.3" fill="#e8d070"/>
-        <polygon points="527.5,409.6 552.5,409.6 553.2,422.4 526.8,422.4" fill="#e8d070"/>
-        <polygon points="525.0,457.3 555.0,457.3 555.8,472.7 524.2,472.7" fill="#e8d070"/>
-        <polygon points="425,555 540,175 505,555" fill="rgba(255,248,178,0.06)"/>
-        <polygon points="575,555 540,175 655,555" fill="rgba(255,248,178,0.06)"/>
-        <ellipse cx="540" cy="552" rx="158" ry="8" fill="rgba(0,0,0,0.65)"/>
-        <rect x="393" y="472" width="294" height="72" rx="15" fill="#0b0b16"/>
-        <path d="M 425,472 Q 444,414 540,406 Q 636,414 655,472 Z" fill="#0d0d1a"/>
-        <rect x="444" y="404" width="192" height="12" rx="5" fill="#0a0a14"/>
-        <path d="M 432,470 L 452,418 Q 540,410 628,418 L 648,470 Z" fill="#14162a" opacity="0.92"/>
-        <path d="M 393,472 Q 416,463 540,458 Q 664,463 687,472 Z" fill="#0e0e1c"/>
-        <ellipse cx="428" cy="492" rx="58" ry="42" fill="rgba(255,248,178,0.11)" filter="url(#hBlur)"/>
-        <ellipse cx="652" cy="492" rx="58" ry="42" fill="rgba(255,248,178,0.11)" filter="url(#hBlur)"/>
-        <ellipse cx="428" cy="492" rx="36" ry="20" fill="#111120"/>
-        <ellipse cx="652" cy="492" rx="36" ry="20" fill="#111120"/>
-        <ellipse cx="428" cy="492" rx="20" ry="11" fill="rgba(255,255,220,1)"/>
-        <ellipse cx="652" cy="492" rx="20" ry="11" fill="rgba(255,255,220,1)"/>
-        <ellipse cx="428" cy="489" rx="18" ry="10" fill="rgba(255,248,178,0.45)" filter="url(#sBlur)"/>
-        <ellipse cx="652" cy="489" rx="18" ry="10" fill="rgba(255,248,178,0.45)" filter="url(#sBlur)"/>
-        <ellipse cx="428" cy="489" rx="10" ry="6" fill="white"/>
-        <ellipse cx="652" cy="489" rx="10" ry="6" fill="white"/>
-        <rect x="466" y="488" width="148" height="44" rx="7" fill="#090914"/>
-        <rect x="482" y="497" width="116" height="5" rx="2" fill="#1b1b28"/>
-        <rect x="482" y="510" width="116" height="5" rx="2" fill="#1b1b28"/>
-        <rect x="482" y="523" width="116" height="5" rx="2" fill="#1b1b28"/>
-        <circle cx="540" cy="481" r="10" fill="#C9A84C" opacity=".82"/>
-        <rect x="400" y="534" width="280" height="14" rx="6" fill="#090912"/>
-        <rect x="376" y="438" width="30" height="15" rx="5" fill="#0a0a14"/>
-        <rect x="674" y="438" width="30" height="15" rx="5" fill="#0a0a14"/>
-      </svg>
-      <p class="road-caption">
-        «Ich bin nicht mehr hier. Ich bin der Wald. Der Wind.
-        Das Licht. Alles fliesst.»
-      </p>
-    </section>
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="kicker">Martin Suter · Diogenes Verlag · Roman · 2000</div>
+    <h1>Die dunkle Seite <em>des Mondes</em></h1>
+    <p class="lead">Was bleibt vom Menschen, wenn man alles wegnimmt, was ihn ausmacht? Martin Suters Roman verfolgt den Abstieg eines kontrollierten Mannes in die tiefsten Schichten seines Selbst.</p>
+  </section>
 
-    <section class="grid" aria-label="Kurze Interpretation">
-      <article class="card">
-        <h2>Handlung</h2>
-        <p>Der Roman zeigt den Absturz eines Mannes, der beruflich alles kontrolliert und plötzlich sich selbst nicht mehr kontrollieren kann.</p>
-      </article>
-      <article class="card">
-        <h2>Themen</h2>
-        <p>Identität, Schuld, Natur, Zivilisation und die Frage, was vom Menschen bleibt, wenn soziale Masken wegfallen.</p>
-      </article>
-      <article class="card">
-        <h2>Stil</h2>
-        <p>Suter erzählt präzise und kühl. Gerade diese Ruhe macht den psychologischen Kontrollverlust so stark.</p>
-      </article>
-    </section>
+  <!-- ══ ROAD SCENE ══ -->
+  <section class="road-visual" aria-hidden="true">
+    <svg class="road-scene" viewBox="0 0 1080 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="skyG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0"    stop-color="#050712"/>
+          <stop offset="0.58" stop-color="#08110c"/>
+          <stop offset="1"    stop-color="#020305"/>
+        </linearGradient>
+        <linearGradient id="roadG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#0d0d10"/>
+          <stop offset="1" stop-color="#1c1c20"/>
+        </linearGradient>
+        <radialGradient id="haloG" cx="50%" cy="91%" r="28%">
+          <stop offset="0" stop-color="rgba(180,35,18,0.18)"/>
+          <stop offset="1" stop-color="rgba(180,35,18,0)"/>
+        </radialGradient>
+        <radialGradient id="vpG" cx="50%" cy="29.5%" r="16%">
+          <stop offset="0" stop-color="rgba(255,248,195,0.22)"/>
+          <stop offset="1" stop-color="rgba(255,248,195,0)"/>
+        </radialGradient>
+        <filter id="hBlur" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="10"/>
+        </filter>
+        <filter id="sBlur" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+      </defs>
+      <rect width="1080" height="560" fill="url(#skyG)"/>
+      <circle cx="78"  cy="70"  r="1.6" fill="#fff" opacity=".72"/>
+      <circle cx="144" cy="114" r="1.2" fill="#fff" opacity=".46"/>
+      <circle cx="268" cy="48"  r="1.7" fill="#fff" opacity=".62"/>
+      <circle cx="346" cy="132" r="1.1" fill="#fff" opacity=".50"/>
+      <circle cx="486" cy="76"  r="1.5" fill="#fff" opacity=".68"/>
+      <circle cx="602" cy="116" r="1.2" fill="#fff" opacity=".48"/>
+      <circle cx="720" cy="54"  r="1.7" fill="#fff" opacity=".72"/>
+      <circle cx="820" cy="128" r="1.1" fill="#fff" opacity=".50"/>
+      <circle cx="944" cy="82"  r="1.6" fill="#fff" opacity=".70"/>
+      <circle cx="1010" cy="150" r="1.2" fill="#fff" opacity=".42"/>
+      <circle cx="902" cy="72"  r="46"  fill="#e9e1c8"/>
+      <circle cx="928" cy="70"  r="48"  fill="#050712" opacity=".74"/>
+      <path d="M0,560 L195,555 L223,512 L206,476 L238,439 L220,404 L254,364 L238,324 L272,286 L252,248 L292,210 L270,176 L318,140 L272,154 L244,110 L214,160 L184,96 L150,164 L122,126 L96,178 L58,116 L32,170 L0,140 Z" fill="#07140a"/>
+      <path d="M0,560 L174,552 L196,504 L180,470 L210,428 L194,388 L226,346 L206,304 L238,266 L218,226 L250,190 L226,162 L260,126 L218,148 L194,124 L166,170 L142,138 L110,188 L82,144 L52,194 L22,158 L0,196 Z" fill="#0d1e0e" opacity=".6"/>
+      <path d="M1080,560 L885,555 L857,512 L874,476 L842,439 L860,404 L826,364 L842,324 L808,286 L828,248 L788,210 L810,176 L762,140 L808,154 L836,110 L866,160 L896,96 L930,164 L958,126 L984,178 L1022,116 L1048,170 L1080,140 Z" fill="#07140a"/>
+      <path d="M1080,560 L906,552 L884,504 L900,470 L870,428 L886,388 L854,346 L874,304 L842,266 L862,226 L830,190 L854,162 L820,126 L862,148 L886,124 L914,170 L938,138 L970,188 L998,144 L1028,194 L1058,158 L1080,196 Z" fill="#0d1e0e" opacity=".6"/>
+      <polygon points="195,555 885,555 540,165" fill="url(#roadG)"/>
+      <rect width="1080" height="560" fill="url(#haloG)"/>
+      <rect width="1080" height="560" fill="url(#vpG)"/>
+      <line x1="195" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
+      <line x1="885" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
+      <!-- centre dashes: proper trapezoids, hw=20·t, hh=10·t, t=(y−165)/390 -->
+      <polygon points="536.5,233.2 543.5,233.2 543.7,236.8 536.3,236.8"   fill="#e8d070"/>
+      <polygon points="535.1,260.5 544.9,260.5 545.2,265.5 534.8,265.5"   fill="#e8d070"/>
+      <polygon points="533.5,291.7 546.5,291.7 546.8,298.3 533.2,298.3"   fill="#e8d070"/>
+      <polygon points="531.7,326.7 548.3,326.7 548.7,335.3 531.3,335.3"   fill="#e8d070"/>
+      <polygon points="529.7,365.7 550.3,365.7 550.8,376.3 529.2,376.3"   fill="#e8d070"/>
+      <polygon points="527.5,409.6 552.5,409.6 553.2,422.4 526.8,422.4"   fill="#e8d070"/>
+      <polygon points="525.0,457.3 555.0,457.3 555.8,472.7 524.2,472.7"   fill="#e8d070"/>
+      <polygon points="425,555 540,175 505,555" fill="rgba(255,248,178,0.06)"/>
+      <polygon points="575,555 540,175 655,555" fill="rgba(255,248,178,0.06)"/>
+      <ellipse cx="540" cy="552" rx="158" ry="8" fill="rgba(0,0,0,0.70)"/>
+      <!-- tail-light glow on road -->
+      <ellipse cx="415" cy="516" rx="64" ry="22" fill="rgba(190,28,14,0.14)" filter="url(#hBlur)"/>
+      <ellipse cx="665" cy="516" rx="64" ry="22" fill="rgba(190,28,14,0.14)" filter="url(#hBlur)"/>
+      <!-- lower body -->
+      <rect x="393" y="472" width="294" height="72" rx="15" fill="#0b0b16"/>
+      <!-- cabin from rear -->
+      <path d="M 430,472 Q 448,415 540,408 Q 632,415 650,472 Z" fill="#0d0d1a"/>
+      <!-- roof -->
+      <rect x="448" y="406" width="184" height="11" rx="5" fill="#0a0a14"/>
+      <!-- rear window (dark, opaque) -->
+      <path d="M 454,470 L 467,430 Q 540,422 613,430 L 626,470 Z" fill="#0c0d1e" opacity="0.97"/>
+      <path d="M 454,470 L 467,430 Q 540,422 613,430 L 626,470 Z" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+      <path d="M 467,430 Q 540,422 613,430 L 618,442 Q 540,436 462,442 Z" fill="rgba(0,0,0,0.35)"/>
+      <!-- trunk lid -->
+      <path d="M 393,472 Q 416,466 540,462 Q 664,466 687,472 Z" fill="#0e0e1c"/>
+      <line x1="403" y1="470" x2="677" y2="470" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
+      <!-- LEFT tail light -->
+      <rect x="393" y="477" width="56" height="30" rx="7" fill="#110404"/>
+      <ellipse cx="421" cy="492" rx="52" ry="36" fill="rgba(195,25,12,0.12)" filter="url(#hBlur)"/>
+      <rect x="397" y="479" width="48" height="26" rx="5" fill="rgba(165,15,10,0.88)"/>
+      <rect x="399" y="481" width="44" height="9" rx="3" fill="rgba(255,65,45,0.95)"/>
+      <ellipse cx="421" cy="489" rx="22" ry="12" fill="rgba(220,50,30,0.55)" filter="url(#sBlur)"/>
+      <!-- RIGHT tail light -->
+      <rect x="631" y="477" width="56" height="30" rx="7" fill="#110404"/>
+      <ellipse cx="659" cy="492" rx="52" ry="36" fill="rgba(195,25,12,0.12)" filter="url(#hBlur)"/>
+      <rect x="635" y="479" width="48" height="26" rx="5" fill="rgba(165,15,10,0.88)"/>
+      <rect x="637" y="481" width="44" height="9" rx="3" fill="rgba(255,65,45,0.95)"/>
+      <ellipse cx="659" cy="489" rx="22" ry="12" fill="rgba(220,50,30,0.55)" filter="url(#sBlur)"/>
+      <!-- bumper -->
+      <rect x="400" y="534" width="280" height="14" rx="6" fill="#090912"/>
+      <rect x="408" y="540" width="264" height="4" fill="#111122"/>
+      <!-- licence plate -->
+      <rect x="492" y="490" width="96" height="26" rx="3" fill="#0e0e1a"/>
+      <rect x="496" y="493" width="88" height="20" rx="2" fill="#18182a"/>
+      <!-- rear fog light -->
+      <rect x="460" y="510" width="24" height="10" rx="3" fill="rgba(170,15,10,0.55)"/>
+      <!-- side mirrors -->
+      <rect x="375" y="438" width="30" height="14" rx="4" fill="#0a0a14"/>
+      <rect x="675" y="438" width="30" height="14" rx="4" fill="#0a0a14"/>
+      <!-- rear tyres -->
+      <ellipse cx="408" cy="550" rx="33" ry="9" fill="#06060c"/>
+      <ellipse cx="672" cy="550" rx="33" ry="9" fill="#06060c"/>
+    </svg>
+    <p class="road-caption">«Ich bin nicht mehr hier. Ich bin der Wald. Der Wind. Das Licht. Alles fliesst.», Urs Blank, auf dem Weg in die Dunkelheit</p>
+  </section>
 
-    <section>
-      <h2 class="section-label">Figurenkonstellation</h2>
-      <div class="constellation-wrap">
-        <svg class="constellation" viewBox="0 0 1080 760" role="img" aria-label="Figurenkonstellation zu Die dunkle Seite des Mondes">
-          <defs>
-            <radialGradient id="blankGrad"><stop offset="0" stop-color="#20203a"/><stop offset="1" stop-color="#0d0d0f"/></radialGradient>
-          </defs>
-          <line x1="540" y1="380" x2="190" y2="170" stroke="var(--teal)" stroke-width="3" stroke-dasharray="12 10"/>
-          <line x1="540" y1="380" x2="890" y2="170" stroke="var(--gold)" stroke-width="3"/>
-          <line x1="540" y1="380" x2="190" y2="590" stroke="var(--blue)" stroke-width="3" stroke-dasharray="4 10"/>
-          <line x1="540" y1="380" x2="890" y2="590" stroke="var(--red)" stroke-width="3"/>
+  <!-- ══ 5 PHASEN ══ -->
+  <section class="phases">
+    <div class="section-label">Handlung · Blanks Abstieg in 5 Phasen</div>
+    <div class="phase-list">
 
-          <text class="relation" x="335" y="245">Ehe · Kontrolle</text>
-          <text class="relation" x="745" y="245">Verführung · Licht</text>
-          <text class="relation" x="335" y="535">Therapie · Realität</text>
-          <text class="relation" x="745" y="535">Bedrohung · Rache</text>
-
-          <g>
-            <circle cx="540" cy="380" r="118" fill="url(#blankGrad)" stroke="var(--gold)" stroke-width="4"/>
-            <text class="node-name" x="540" y="368">URS BLANK</text>
-            <text class="node-role" x="540" y="404">Protagonist · gespaltene Identität</text>
-          </g>
-
-          <g>
-            <circle cx="190" cy="170" r="92" fill="#1a2e2a" stroke="var(--teal)" stroke-width="4"/>
-            <text class="node-name" x="190" y="160">EVELYNE</text>
-            <text class="node-name" x="190" y="188">VOGT</text>
-            <text class="node-role" x="190" y="222">Ordnung</text>
-          </g>
-
-          <g>
-            <circle cx="890" cy="170" r="92" fill="#2e1a0a" stroke="var(--gold)" stroke-width="4"/>
-            <text class="node-name" x="890" y="160">LUCILLE</text>
-            <text class="node-name" x="890" y="188">ROTH</text>
-            <text class="node-role" x="890" y="222">Wegweiserin</text>
-          </g>
-
-          <g>
-            <circle cx="190" cy="590" r="92" fill="#1a1a2e" stroke="var(--blue)" stroke-width="4"/>
-            <text class="node-name" x="190" y="580">DR.</text>
-            <text class="node-name" x="190" y="608">STÄUBLI</text>
-            <text class="node-role" x="190" y="642">Vernunft</text>
-          </g>
-
-          <g>
-            <circle cx="890" cy="590" r="92" fill="#2e0a0a" stroke="var(--red)" stroke-width="4"/>
-            <text class="node-name" x="890" y="580">PIUS</text>
-            <text class="node-name" x="890" y="608">OTT</text>
-            <text class="node-role" x="890" y="642">Antagonist</text>
-          </g>
-        </svg>
-        <div class="legend">
-          <div><strong>Urs Blank</strong>Sein Name wirkt wie ein Programm: leer, offen, unbeschrieben. Er wird zur Projektionsfläche für Trieb, Schuld und Verwandlung.</div>
-          <div><strong>Lucille Roth</strong>Sie bringt Licht und Verführung in Blanks geordnetes Leben. Durch sie beginnt der Übergang in eine andere Wahrnehmung.</div>
-          <div><strong>Evelyne Vogt</strong>Sie steht für Alltag, Ehe und Kontrolle. Ihr Name erinnert an Aufsicht und Ordnung.</div>
-          <div><strong>Pius Ott</strong>Er wirkt wie die dunkle Gegenkraft: kalt, gefährlich und rachsüchtig.</div>
+      <div class="phase-item">
+        <div class="phase-num">01</div>
+        <div class="phase-body">
+          <h2 class="phase-title">Loslassen &amp; Eintauchen <span class="tag">Auslöser</span></h2>
+          <p class="phase-text">Urs Blank ist Wirtschaftsanwalt, erfolgreich, kontrolliert, verheiratet. Auf einer Wanderung im Berner Oberland kostet er erstmals Psilocybin-Pilze. Kein Plan. Kein Stress. Der Alltag verliert seinen Griff.</p>
         </div>
       </div>
-    </section>
-  </main>
+
+      <div class="phase-item">
+        <div class="phase-num">02</div>
+        <div class="phase-body">
+          <h2 class="phase-title">Die Natur wird zu mir <span class="tag">Verwandlung</span></h2>
+          <p class="phase-text">Blank zieht sich immer öfter in den Wald zurück. Er gibt seinen Job auf, verlässt seine Frau Evelyne. Die Grenze zwischen Mensch und Natur löst sich auf. Er lebt im Wald, jagt, überlebt, und trifft Lucille.</p>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">03</div>
+        <div class="phase-body">
+          <h2 class="phase-title">Kontrollverlust <span class="tag">Wendepunkt</span></h2>
+          <p class="phase-text">Der Drogenrausch eskaliert. Blanks Wahrnehmung bricht auf: Metaphern wie «Treibgut auf den Wellen» und «Herbstblatt im Wind» zeigen: Er bestimmt nichts mehr. Immer schneller. Runter, runter, runter. Die Welt, eine Achterbahn ohne Bremsen.</p>
+          <p class="phase-quote">«Blank war ein Meteor.» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 115</span></p>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">04</div>
+        <div class="phase-body">
+          <h2 class="phase-title">Teilchen des Universums <span class="tag">Auflösung</span></h2>
+          <p class="phase-text">Er ist nicht mehr Blank. Er ist ein Teil von allem, endlos, zeitlos, Energie. Religiöse Symbole wie «Lux aeterna» und «Amen» geben dem Trip spirituelle Tiefe. Das Ich löst sich vollständig auf.</p>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">05</div>
+        <div class="phase-body">
+          <h2 class="phase-title">Nachklang: Schuld &amp; Tod <span class="tag">Konsequenz</span></h2>
+          <p class="phase-text">Der Trip ist vorbei. Aber Blank ist nicht mehr derselbe, und er wird schuldig. Im Wald tötet er. Pius Ott, sein Feind und Jäger, wird zum Opfer. Was als Suche nach dem echten Selbst begann, endet im Mord. Mehr Herz. Weniger Maske. Und schuldig.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ INTERPRETATIONSANSÄTZE ══ -->
+  <section class="interpretations">
+    <div class="section-label">Interpretationsansätze aus dem Unterricht</div>
+    <div class="interp-list">
+
+      <article class="interp-card romantik">
+        <h3>Romantik &amp; Zivilisationsflucht</h3>
+        <p>Blanks Rückzug in den Wald ist mehr als persönliche Krise, sondern eine literarische Zivilisationsflucht, wie sie die Romantik kannte. Die Natur spiegelt Blanks innere Zustände wider: Sie ist kein Idyll, sondern Spiegel. Bilder wie «Tannen und Fichten wie Algen» und «Treibgut auf den Wellen» zeigen die für die Romantik typische Verschmelzung von Mensch und Natur.</p>
+        <p>Der Kontrollverlust und das Sich-treiben-Lassen entsprechen dem romantischen Primat des Gefühls über die Vernunft. Religiöse und mystische Elemente wie «Lux aeterna» und das Lichtmotiv spiegeln die romantische Sehnsucht nach etwas Höherem, Spirituellem und Unendlichem. Suter zeigt aber: Die Natur erlöst nicht. Sie entblösst.</p>
+        <div class="beispiele">
+          <span class="beispiel-tag">Tannen wie Algen · S.117</span>
+          <span class="beispiel-tag">Treibgut auf den Wellen · S.114</span>
+          <span class="beispiel-tag">Lux aeterna · S.118</span>
+          <span class="beispiel-tag">Herbstblatt im Wind · S.114</span>
+        </div>
+      </article>
+
+      <article class="interp-card doppel">
+        <h3>Doppelgängermotiv &amp; Identitätsverlust</h3>
+        <p>Urs Blank trägt von Anfang an zwei Identitäten: den kontrollierten Wirtschaftsanwalt nach aussen und das triebgesteuerte Naturwesen nach innen. Die Psilocybin-Erfahrung hebt die Schwelle zwischen beiden auf: das Verdrängte kehrt zurück und übernimmt.</p>
+        <p>Sein Name ist Programm: <em>blank</em> bedeutet leer, unbeschrieben, offen, er hat keine feste Identität, er ist das, was die Umgebung aus ihm macht. «Ursus» verweist auf den Bären: ein Tier, das jagt, tötet, überlebt. Die Namenssymbolik verdichtet Blanks gesamten Bogen: von der leeren Fassade bis zum Raubtier im Wald.</p>
+        <div class="beispiele">
+          <span class="beispiel-tag">blank = leer · unbeschrieben</span>
+          <span class="beispiel-tag">Ursus = Bär (Lateinisch)</span>
+          <span class="beispiel-tag">Doppelgänger-Motiv</span>
+          <span class="beispiel-tag">Trieb vs. Kontrolle</span>
+        </div>
+      </article>
+
+      <article class="interp-card stilistik">
+        <h3>Stilistik &amp; Sprachliche Mittel</h3>
+        <p>Suter setzt Sprache präzise als Stimmungsinstrument ein. Suter häuft sich Wiederholungen: «Immer schneller, immer schneller» und «runter, runter, runter» erzeugen Tempo und zeigen den Kontrollverlust durch Form, nicht nur durch Inhalt. Kurze Hauptsätze («Er spielte nicht. Er hatte keine Lust.») verstärken Blanks Passivität.</p>
+        <p>Metaphern wie «Blank war ein Meteor» und «Die Welt war eine Achterbahn» machen das Irrationale sinnlich erfahrbar. Religiöse Symbole («Lux aeterna», «Amen») geben dem Trip spirituelle Dimension. Die kühle, distanzierte Erzählhaltung Suters macht den psychologischen Absturz umso wirkungsvoller, gerade weil er nicht wertet.</p>
+        <div class="beispiele">
+          <span class="beispiel-tag">Wiederholung</span>
+          <span class="beispiel-tag">Metapher</span>
+          <span class="beispiel-tag">Kurze Hauptsätze</span>
+          <span class="beispiel-tag">Lichtsymbolik</span>
+          <span class="beispiel-tag">Religiöse Symbole</span>
+          <span class="beispiel-tag">Kontrast</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ══ FIGURENKONSTELLATION ══ -->
+  <section class="constellation-section">
+    <div class="section-label">Figurenkonstellation &amp; Namenssymbolik</div>
+    <div class="constellation-wrap">
+
+      <svg class="constellation" viewBox="0 0 1080 780"
+           xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-label="Figurenkonstellation zu Die dunkle Seite des Mondes">
+        <defs>
+          <!-- Blank node gradient -->
+          <radialGradient id="gBlank" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#22224a"/>
+            <stop offset="100%" stop-color="#0a0a14"/>
+          </radialGradient>
+          <!-- Lucille -->
+          <radialGradient id="gLucille" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#2e1a08"/>
+            <stop offset="100%" stop-color="#0e0804"/>
+          </radialGradient>
+          <!-- Evelyne -->
+          <radialGradient id="gEvelyne" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#0f2824"/>
+            <stop offset="100%" stop-color="#060e0c"/>
+          </radialGradient>
+          <!-- Stäubli -->
+          <radialGradient id="gStaeubli" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#101830"/>
+            <stop offset="100%" stop-color="#06090f"/>
+          </radialGradient>
+          <!-- Ott -->
+          <radialGradient id="gOtt" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#2a0808"/>
+            <stop offset="100%" stop-color="#0e0404"/>
+          </radialGradient>
+          <!-- Dunkles Ich -->
+          <radialGradient id="gIch" cx="50%" cy="40%" r="60%">
+            <stop offset="0"   stop-color="#1a0a2e"/>
+            <stop offset="100%" stop-color="#080612"/>
+          </radialGradient>
+          <!-- subtle glow filter for Blank -->
+          <filter id="glowBlank" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ── LINES: each split into segment A + gap + segment B ── -->
+
+        <!-- Blank ↔ Lucille (vertical gold — label offset left, line unbroken) -->
+        <line x1="540" y1="275" x2="540" y2="195" stroke="#C9A84C" stroke-width="2.5" opacity=".7"/>
+
+        <!-- Blank ↔ Evelyne: (432,335)→(412,330) · gap · (288,302)→(268,297) -->
+        <line x1="432" y1="335" x2="412" y2="330" stroke="#4a9080" stroke-width="2" stroke-dasharray="12,8" opacity=".7"/>
+        <line x1="288" y1="302" x2="268" y2="297" stroke="#4a9080" stroke-width="2" stroke-dasharray="12,8" opacity=".7"/>
+
+        <!-- Blank ↔ Stäubli: (428,450)→(409,457) · gap · (281,505)→(262,512) -->
+        <line x1="428" y1="450" x2="409" y2="457" stroke="#5070a0" stroke-width="2" stroke-dasharray="4,10" opacity=".65"/>
+        <line x1="281" y1="505" x2="262" y2="512" stroke="#5070a0" stroke-width="2" stroke-dasharray="4,10" opacity=".65"/>
+
+        <!-- Blank ↔ Ott: (652,450)→(671,457) · gap · (799,505)→(818,512) -->
+        <line x1="652" y1="450" x2="671" y2="457" stroke="#8b2020" stroke-width="2.5" opacity=".75"/>
+        <line x1="799" y1="505" x2="818" y2="512" stroke="#8b2020" stroke-width="2.5" opacity=".75"/>
+
+        <!-- Blank ↔ Dunkles Ich: (648,335)→(668,330) · gap · (792,302)→(812,297) -->
+        <line x1="648" y1="335" x2="668" y2="330" stroke="#7040a0" stroke-width="2" stroke-dasharray="8,6" opacity=".65"/>
+        <line x1="792" y1="302" x2="812" y2="297" stroke="#7040a0" stroke-width="2" stroke-dasharray="8,6" opacity=".65"/>
+
+        <!-- Lucille ↔ Dunkles Ich: (622,148)→(672,170) · gap · (768,210)→(818,232) -->
+        <line x1="622" y1="148" x2="672" y2="170" stroke="#7040a0" stroke-width="1.5" stroke-dasharray="5,12" opacity=".35"/>
+        <line x1="768" y1="210" x2="818" y2="232" stroke="#7040a0" stroke-width="1.5" stroke-dasharray="5,12" opacity=".35"/>
+
+        <!-- ── TEXT LABELS — centred in the gap, not touching either segment ── -->
+        <text class="rel-label" x="522" y="244" text-anchor="end">Verführung · Erleuchtung</text>
+        <text class="rel-label" x="350" y="313">Ehe · Kontrolle</text>
+        <text class="rel-label" x="345" y="478">Therapie · Vernunft</text>
+        <text class="rel-label" x="735" y="478">Bedrohung · Rache</text>
+        <text class="rel-label" x="730" y="313">Verwandlung · Trieb</text>
+        <text class="rel-label-sm" x="720" y="187">Katalysator</text>
+
+        <!-- ── NODES ── -->
+
+        <!-- 1 · URS BLANK — centre, largest -->
+        <circle cx="540" cy="390" r="118" fill="url(#gBlank)" stroke="#C9A84C" stroke-width="3.5"/>
+        <!-- inner pulsing ring -->
+        <circle cx="540" cy="390" r="108" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1.5"/>
+        <text class="node-name" x="540" y="368">URS BLANK</text>
+        <text class="node-role" x="540" y="390">Protagonist</text>
+        <text class="node-role" x="540" y="412">gespaltene Identität</text>
+
+        <!-- 2 · LUCILLE ROTH — top centre -->
+        <circle cx="540" cy="140" r="82" fill="url(#gLucille)" stroke="#C9A84C" stroke-width="3"/>
+        <text class="node-name" x="540" y="118">LUCILLE</text>
+        <text class="node-name" x="540" y="140">ROTH</text>
+        <text class="node-role" x="540" y="162">Wegweiserin · Licht</text>
+
+        <!-- 3 · EVELYNE VOGT — upper left -->
+        <circle cx="190" cy="265" r="78" fill="url(#gEvelyne)" stroke="#4a9080" stroke-width="3"/>
+        <text class="node-name" x="190" y="243">EVELYNE</text>
+        <text class="node-name" x="190" y="265">VOGT</text>
+        <text class="node-role" x="190" y="287">Ehefrau · Ordnung</text>
+
+        <!-- 4 · DR. STÄUBLI — lower left -->
+        <circle cx="190" cy="565" r="74" fill="url(#gStaeubli)" stroke="#5070a0" stroke-width="3"/>
+        <text class="node-name" x="190" y="543">DR.</text>
+        <text class="node-name" x="190" y="565">STÄUBLI</text>
+        <text class="node-role" x="190" y="587">Psychiater · Vernunft</text>
+
+        <!-- 5 · PIUS OTT — lower right -->
+        <circle cx="890" cy="565" r="78" fill="url(#gOtt)" stroke="#8b2020" stroke-width="3"/>
+        <text class="node-name" x="890" y="543">PIUS</text>
+        <text class="node-name" x="890" y="565">OTT</text>
+        <text class="node-role" x="890" y="587">Antagonist · Jäger</text>
+
+        <!-- 6 · DAS DUNKLE ICH — upper right -->
+        <circle cx="890" cy="265" r="74" fill="url(#gIch)" stroke="#7040a0" stroke-width="3"/>
+        <text class="node-name-sm" x="890" y="247">DAS DUNKLE</text>
+        <text class="node-name-sm" x="890" y="265">ICH</text>
+        <text class="node-role"    x="890" y="283">Blanks Schattenseite</text>
+
+      </svg>
+
+      <!-- NAMENSSYMBOLIK LEGEND -->
+      <div class="name-legend">
+        <div class="name-card blank">
+          <strong>Urs Blank</strong>
+          <span class="symbolik">blank = leer · unbeschrieben · Ursus = Bär</span>
+          <p>Sein Name ist Programm. «Blank» bedeutet leer, offen, frei von Inhalt. Sie ist eine unbeschriebene Fläche, die sich durch äussere Einflüsse neu schreibt. «Ursus» verweist auf den Bären: das Raubtier, das im Wald lebt und tötet.</p>
+        </div>
+        <div class="name-card lucille">
+          <strong>Lucille Roth</strong>
+          <span class="symbolik">Lucilla = die Leuchtende · Roth = rot = Neuanfang</span>
+          <p>Lucille bringt Licht in Blanks dunkle Transformation. Ihr Name steht für Erleuchtung und Erkenntnis , gleichzeitig für Gefahr. «Roth» steht in der Hindukultur für Neuanfänge und weibliche Stärke, aber auch für Blut und Gefahr.</p>
+        </div>
+        <div class="name-card evelyne">
+          <strong>Evelyne Vogt</strong>
+          <span class="symbolik">Vogt = Aufseher · Kontrolleurin</span>
+          <p>Sie verkörpert das bürgerliche Leben, das Urs «haben sollte»: Stabilität, Erfolg, Ordnung. Der Name «Vogt» bedeutet historisch Aufseher und Verwalter. Aussen elegant, innen kontrollierend: sie ist Blanks Wächterin der Normalität.</p>
+        </div>
+        <div class="name-card staeubli">
+          <strong>Dr. Stäubli</strong>
+          <span class="symbolik">Stimme der gesellschaftlichen Vernunft</span>
+          <p>Als Psychiater repräsentiert Stäubli die rationale Gegenwelt zu Blanks Drogenrausch. Er erklärt den Trip wissenschaftlich, deutet ihn als «religiöse Bewusstseinserweiterung», und scheitert daran, Blank zurückzuholen.</p>
+        </div>
+        <div class="name-card ott">
+          <strong>Pius Ott</strong>
+          <span class="symbolik">Pius = fromm (Ironie) · Ott = Besitz · Erbe</span>
+          <p>Sein Name ist eine Ironie: «Pius» bedeutet fromm und pflichtbewusst, das Gegenteil seines Charakters. Ott ist kalt, rücksichtslos, rachsüchtig. Er verfolgt Blank als Jäger und wird zum Opfer seines eigenen Racheplans.</p>
+        </div>
+        <div class="name-card ich">
+          <strong>Das dunkle Ich</strong>
+          <span class="symbolik">Blanks verdrängte Triebkraft</span>
+          <p>Kein eigenständiger Charakter, sondern das Andere in Blank selbst: jene entfesselte Seite, die die Psilocybin-Pilze freisetzen. Das «dunkle Ich» steht für alles, was die bürgerliche Gesellschaft verdrängt: Trieb, Gewalt, Freiheit.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="project-credit" aria-label="Projektcredit">
+    <strong>TZ</strong>
+    Timothy van Zanten <span>in Kooperation mit</span> Nikolai Anderson
+  </footer>
+
+</main>
 </body>
 </html>
