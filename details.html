@@ -79,6 +79,32 @@
       font-style: italic;
     }
 
+    .road-visual {
+      margin: 48px 0 54px;
+      overflow: hidden;
+      border-radius: 4px;
+      line-height: 0;
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .road-scene {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .road-caption {
+      padding: 18px 28px;
+      background: rgba(6,6,16,0.85);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 25px;
+      font-style: italic;
+      color: rgba(184,170,152,0.85);
+      text-align: center;
+      line-height: 1.45;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -191,6 +217,95 @@
       <div class="kicker">Martin Suter · Diogenes · Roman</div>
       <h1>Die dunkle Seite des Mondes</h1>
       <p class="lead">Urs Blank ist ein erfolgreicher Wirtschaftsanwalt. Nach einem Pilztrip im Wald beginnt sich seine Persönlichkeit zu verändern: Die kontrollierte Oberfläche bricht auf, und etwas Dunkleres tritt hervor.</p>
+    </section>
+
+    <section class="road-visual" aria-hidden="true">
+      <svg class="road-scene" viewBox="0 0 1080 560" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyG" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#050712"/>
+            <stop offset="0.58" stop-color="#08110c"/>
+            <stop offset="1" stop-color="#020305"/>
+          </linearGradient>
+          <linearGradient id="roadG" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#0d0d10"/>
+            <stop offset="1" stop-color="#1c1c20"/>
+          </linearGradient>
+          <radialGradient id="haloG" cx="50%" cy="88%" r="50%">
+            <stop offset="0" stop-color="rgba(255,248,195,0.20)"/>
+            <stop offset="1" stop-color="rgba(255,248,195,0)"/>
+          </radialGradient>
+          <radialGradient id="vpG" cx="50%" cy="29.5%" r="16%">
+            <stop offset="0" stop-color="rgba(255,248,195,0.22)"/>
+            <stop offset="1" stop-color="rgba(255,248,195,0)"/>
+          </radialGradient>
+          <filter id="hBlur" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="10"/>
+          </filter>
+          <filter id="sBlur" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4"/>
+          </filter>
+        </defs>
+        <rect width="1080" height="560" fill="url(#skyG)"/>
+        <circle cx="78" cy="70" r="1.6" fill="#fff" opacity=".72"/>
+        <circle cx="144" cy="114" r="1.2" fill="#fff" opacity=".46"/>
+        <circle cx="268" cy="48" r="1.7" fill="#fff" opacity=".62"/>
+        <circle cx="346" cy="132" r="1.1" fill="#fff" opacity=".5"/>
+        <circle cx="486" cy="76" r="1.5" fill="#fff" opacity=".68"/>
+        <circle cx="602" cy="116" r="1.2" fill="#fff" opacity=".48"/>
+        <circle cx="720" cy="54" r="1.7" fill="#fff" opacity=".72"/>
+        <circle cx="820" cy="128" r="1.1" fill="#fff" opacity=".5"/>
+        <circle cx="944" cy="82" r="1.6" fill="#fff" opacity=".7"/>
+        <circle cx="1010" cy="150" r="1.2" fill="#fff" opacity=".42"/>
+        <circle cx="902" cy="72" r="46" fill="#e9e1c8"/>
+        <circle cx="928" cy="70" r="48" fill="#050712" opacity=".74"/>
+        <path d="M0,560 L195,555 L223,512 L206,476 L238,439 L220,404 L254,364 L238,324 L272,286 L252,248 L292,210 L270,176 L318,140 L272,154 L244,110 L214,160 L184,96 L150,164 L122,126 L96,178 L58,116 L32,170 L0,140 Z" fill="#07140a"/>
+        <path d="M0,560 L174,552 L196,504 L180,470 L210,428 L194,388 L226,346 L206,304 L238,266 L218,226 L250,190 L226,162 L260,126 L218,148 L194,124 L166,170 L142,138 L110,188 L82,144 L52,194 L22,158 L0,196 Z" fill="#0d1e0e" opacity=".6"/>
+        <path d="M1080,560 L885,555 L857,512 L874,476 L842,439 L860,404 L826,364 L842,324 L808,286 L828,248 L788,210 L810,176 L762,140 L808,154 L836,110 L866,160 L896,96 L930,164 L958,126 L984,178 L1022,116 L1048,170 L1080,140 Z" fill="#07140a"/>
+        <path d="M1080,560 L906,552 L884,504 L900,470 L870,428 L886,388 L854,346 L874,304 L842,266 L862,226 L830,190 L854,162 L820,126 L862,148 L886,124 L914,170 L938,138 L970,188 L998,144 L1028,194 L1058,158 L1080,196 Z" fill="#0d1e0e" opacity=".6"/>
+        <polygon points="195,555 885,555 540,165" fill="url(#roadG)"/>
+        <rect width="1080" height="560" fill="url(#haloG)"/>
+        <rect width="1080" height="560" fill="url(#vpG)"/>
+        <line x1="195" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
+        <line x1="885" y1="555" x2="540" y2="165" stroke="rgba(255,255,255,0.50)" stroke-width="3.5" stroke-dasharray="30,18"/>
+        <polygon points="536.5,233.2 543.5,233.2 543.7,236.8 536.3,236.8" fill="#e8d070"/>
+        <polygon points="535.1,260.5 544.9,260.5 545.2,265.5 534.8,265.5" fill="#e8d070"/>
+        <polygon points="533.5,291.7 546.5,291.7 546.8,298.3 533.2,298.3" fill="#e8d070"/>
+        <polygon points="531.7,326.7 548.3,326.7 548.7,335.3 531.3,335.3" fill="#e8d070"/>
+        <polygon points="529.7,365.7 550.3,365.7 550.8,376.3 529.2,376.3" fill="#e8d070"/>
+        <polygon points="527.5,409.6 552.5,409.6 553.2,422.4 526.8,422.4" fill="#e8d070"/>
+        <polygon points="525.0,457.3 555.0,457.3 555.8,472.7 524.2,472.7" fill="#e8d070"/>
+        <polygon points="425,555 540,175 505,555" fill="rgba(255,248,178,0.06)"/>
+        <polygon points="575,555 540,175 655,555" fill="rgba(255,248,178,0.06)"/>
+        <ellipse cx="540" cy="552" rx="158" ry="8" fill="rgba(0,0,0,0.65)"/>
+        <rect x="393" y="472" width="294" height="72" rx="15" fill="#0b0b16"/>
+        <path d="M 425,472 Q 444,414 540,406 Q 636,414 655,472 Z" fill="#0d0d1a"/>
+        <rect x="444" y="404" width="192" height="12" rx="5" fill="#0a0a14"/>
+        <path d="M 432,470 L 452,418 Q 540,410 628,418 L 648,470 Z" fill="#14162a" opacity="0.92"/>
+        <path d="M 393,472 Q 416,463 540,458 Q 664,463 687,472 Z" fill="#0e0e1c"/>
+        <ellipse cx="428" cy="492" rx="58" ry="42" fill="rgba(255,248,178,0.11)" filter="url(#hBlur)"/>
+        <ellipse cx="652" cy="492" rx="58" ry="42" fill="rgba(255,248,178,0.11)" filter="url(#hBlur)"/>
+        <ellipse cx="428" cy="492" rx="36" ry="20" fill="#111120"/>
+        <ellipse cx="652" cy="492" rx="36" ry="20" fill="#111120"/>
+        <ellipse cx="428" cy="492" rx="20" ry="11" fill="rgba(255,255,220,1)"/>
+        <ellipse cx="652" cy="492" rx="20" ry="11" fill="rgba(255,255,220,1)"/>
+        <ellipse cx="428" cy="489" rx="18" ry="10" fill="rgba(255,248,178,0.45)" filter="url(#sBlur)"/>
+        <ellipse cx="652" cy="489" rx="18" ry="10" fill="rgba(255,248,178,0.45)" filter="url(#sBlur)"/>
+        <ellipse cx="428" cy="489" rx="10" ry="6" fill="white"/>
+        <ellipse cx="652" cy="489" rx="10" ry="6" fill="white"/>
+        <rect x="466" y="488" width="148" height="44" rx="7" fill="#090914"/>
+        <rect x="482" y="497" width="116" height="5" rx="2" fill="#1b1b28"/>
+        <rect x="482" y="510" width="116" height="5" rx="2" fill="#1b1b28"/>
+        <rect x="482" y="523" width="116" height="5" rx="2" fill="#1b1b28"/>
+        <circle cx="540" cy="481" r="10" fill="#C9A84C" opacity=".82"/>
+        <rect x="400" y="534" width="280" height="14" rx="6" fill="#090912"/>
+        <rect x="376" y="438" width="30" height="15" rx="5" fill="#0a0a14"/>
+        <rect x="674" y="438" width="30" height="15" rx="5" fill="#0a0a14"/>
+      </svg>
+      <p class="road-caption">
+        «Ich bin nicht mehr hier. Ich bin der Wald. Der Wind.
+        Das Licht. Alles fliesst.»
+      </p>
     </section>
 
     <section class="grid" aria-label="Kurze Interpretation">
