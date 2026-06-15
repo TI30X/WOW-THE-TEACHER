@@ -726,14 +726,63 @@
     .dot {
       width: 10px;
       height: 10px;
+      padding: 0;
+      border: 0;
       border-radius: 50%;
       background: rgba(245, 240, 232, 0.25);
+      cursor: pointer;
       transition: background 250ms ease, transform 250ms ease;
     }
 
     .dot.active {
       background: var(--gold);
       transform: scale(1.25);
+    }
+
+    .slide-controls {
+      position: absolute;
+      left: 50%;
+      bottom: 74px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 20;
+      transform: translateX(-50%);
+    }
+
+    .slide-control {
+      min-width: 76px;
+      min-height: 52px;
+      padding: 0 18px;
+      border: 1px solid rgba(245, 240, 232, 0.28);
+      border-radius: 999px;
+      background: rgba(10, 10, 24, 0.72);
+      color: var(--parchment);
+      font-family: "DM Mono", monospace;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .slide-control:hover,
+    .slide-control:focus-visible {
+      border-color: var(--gold);
+      background: rgba(20, 20, 34, 0.9);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .slide-control:active {
+      transform: translateY(0);
+    }
+
+    .pause-toggle {
+      min-width: 156px;
+      color: var(--gold-light);
     }
 
     .progress-track {
@@ -750,7 +799,6 @@
       height: 100%;
       width: 0;
       background: var(--gold);
-      animation: progressFill 8s linear infinite;
     }
 
     @keyframes progressFill {
@@ -858,10 +906,10 @@
           <line x1="860" y1="380" x2="540" y2="750" stroke="#C9A84C" stroke-width="3"/><text class="line-label" x="750" y="555">Verführung / Erleuchtung</text>
           <line x1="860" y1="1120" x2="540" y2="750" stroke="#8b2020" stroke-width="3"/><text class="line-label" x="770" y="940">Rache / Bedrohung</text>
           <line x1="220" y1="1120" x2="540" y2="750" stroke="#5070a0" stroke-width="3" stroke-dasharray="4 12"/><text class="line-label" x="315" y="940">Therapie / Realität</text>
-          <g><circle cx="220" cy="380" r="85" fill="#1a2e2a" stroke="#4a9080" stroke-width="3"/><text class="node-text" x="220" y="370">EVELYNE</text><text class="node-text" x="220" y="400">VOGT</text><text class="node-sub" x="220" y="430">Ehefrau · Ordnung</text><text class="symbol-label" x="220" y="500">Vogt = Aufseher</text></g>
+          <g><circle cx="220" cy="380" r="85" fill="#1a2e2a" stroke="#4a9080" stroke-width="3"/><text class="node-text" x="220" y="370">EVELYNE</text><text class="node-text" x="220" y="400">VOGT</text><text class="node-sub" x="220" y="430">Partnerin · Ordnung</text><text class="symbol-label" x="220" y="500">Vogt = Aufseher</text></g>
           <g><circle cx="860" cy="380" r="85" fill="#2e1a0a" stroke="#C9A84C" stroke-width="3"/><text class="node-text" x="860" y="370">LUCILLE</text><text class="node-text" x="860" y="400">ROTH</text><text class="node-sub" x="860" y="430">die Leuchtende</text><text class="symbol-label" x="860" y="500">Licht · rot · Neuanfang</text></g>
           <g><circle cx="860" cy="1120" r="85" fill="#2e0a0a" stroke="#8b2020" stroke-width="3"/><text class="node-text" x="860" y="1110">PIUS</text><text class="node-text" x="860" y="1140">OTT</text><text class="node-sub" x="860" y="1170">Antagonist</text><text class="symbol-label" x="860" y="1240">Pius = fromm · Ott = Besitz</text></g>
-          <g><circle cx="220" cy="1120" r="85" fill="#1a1a2e" stroke="#5070a0" stroke-width="3"/><text class="node-text" x="220" y="1110">DR.</text><text class="node-text" x="220" y="1140">STÄUBLI</text><text class="node-sub" x="220" y="1170">Stimme der Vernunft</text></g>
+          <g><circle cx="220" cy="1120" r="85" fill="#1a1a2e" stroke="#5070a0" stroke-width="3"/><text class="node-text" x="220" y="1110">ALFRED</text><text class="node-text" x="220" y="1140">WENGER</text><text class="node-sub" x="220" y="1170">Stimme der Vernunft</text></g>
           <g class="pulse-node"><circle cx="540" cy="750" r="130" fill="url(#blankGrad)" stroke="#C9A84C" stroke-width="3"/><text class="node-text" x="540" y="740" font-size="30">URS BLANK</text><text class="node-sub" x="540" y="785" font-size="28">Protagonist</text></g>
         </svg>
         <div class="caption-rule fade-up" style="--delay: 420ms;"></div>
@@ -912,7 +960,12 @@
       </div>
     </section>
 
-    <div class="dots" aria-hidden="true"></div>
+    <div class="slide-controls" aria-label="Präsentation steuern">
+      <button class="slide-control prev-slide" type="button" aria-label="Vorherige Folie">Zurück</button>
+      <button class="slide-control pause-toggle" type="button" aria-pressed="false">Pause</button>
+      <button class="slide-control next-slide" type="button" aria-label="Nächste Folie">Weiter</button>
+    </div>
+    <div class="dots" aria-label="Folien direkt auswählen"></div>
     <div class="progress-track" aria-hidden="true"><div class="progress"></div></div>
   </main>
   </div>
@@ -920,11 +973,18 @@
   <script>
     const slides = [...document.querySelectorAll(".slide:not(.info-slide)")];
     const transitions = ["fade", "fade", "fade"];
+    const autoDelay = 8000;
     const dotsWrap = document.querySelector(".dots");
     const progress = document.querySelector(".progress");
     const stageShell = document.querySelector(".stage-shell");
     const display = document.querySelector("#display");
+    const prevButton = document.querySelector(".prev-slide");
+    const nextButton = document.querySelector(".next-slide");
+    const pauseButton = document.querySelector(".pause-toggle");
     let current = 0;
+    let timerId = null;
+    let isPaused = false;
+    let isTransitioning = false;
 
     function fitStage() {
       const scale = Math.min(stageShell.clientWidth / 1080, stageShell.clientHeight / 1920);
@@ -937,6 +997,7 @@
     requestAnimationFrame(() => {
       activateEntry(slides[0]);
       restartProgress();
+      scheduleNext();
     });
 
     slides.forEach((slide, slideIndex) => {
@@ -956,15 +1017,56 @@
         stars.appendChild(star);
       }
 
-      const dot = document.createElement("div");
+      const dot = document.createElement("button");
+      dot.type = "button";
       dot.className = `dot${slideIndex === 0 ? " active" : ""}`;
+      dot.setAttribute("aria-label", `Folie ${slideIndex + 1} anzeigen`);
+      dot.addEventListener("click", () => goToSlide(slideIndex));
       dotsWrap.appendChild(dot);
     });
+    updateDots();
 
     function restartProgress() {
+      if (isPaused) {
+        stopProgress();
+        return;
+      }
       progress.style.animation = "none";
       void progress.offsetHeight;
-      progress.style.animation = "progressFill 8s linear infinite";
+      progress.style.animation = `progressFill ${autoDelay}ms linear forwards`;
+    }
+
+    function stopProgress() {
+      progress.style.animation = "none";
+      progress.style.width = "0";
+    }
+
+    function scheduleNext() {
+      clearTimeout(timerId);
+      if (!isPaused) {
+        timerId = setTimeout(() => advance(), autoDelay);
+      }
+    }
+
+    function setPaused(value) {
+      isPaused = value;
+      pauseButton.textContent = isPaused ? "Weiterlaufen" : "Pause";
+      pauseButton.setAttribute("aria-pressed", String(isPaused));
+
+      if (isPaused) {
+        clearTimeout(timerId);
+        stopProgress();
+      } else {
+        restartProgress();
+        scheduleNext();
+      }
+    }
+
+    function updateDots() {
+      document.querySelectorAll(".dot").forEach((dot, index) => {
+        dot.classList.toggle("active", index === current);
+        dot.setAttribute("aria-current", index === current ? "true" : "false");
+      });
     }
 
     function activateEntry(slide) {
@@ -974,16 +1076,29 @@
     }
 
     function advance() {
+      goToSlide((current + 1) % slides.length, { keepPlaying: true });
+    }
+
+    function goToSlide(nextIndex, options = {}) {
+      if (nextIndex === current || isTransitioning) return;
+
+      if (!options.keepPlaying) {
+        setPaused(true);
+      } else {
+        clearTimeout(timerId);
+      }
+
       const outgoing = slides[current];
-      const nextIndex = (current + 1) % slides.length;
       const incoming = slides[nextIndex];
       const type = transitions[current];
-      const transitionDuration = current === 0 || current === slides.length - 1 ? 2200 : 1600;
+      const isForwardFromFirst = current === 0 && nextIndex === 1;
+      const transitionDuration = isForwardFromFirst || current === slides.length - 1 ? 2200 : 1600;
+      isTransitioning = true;
 
       outgoing.className = outgoing.className.replace(/\b(active|entering|exiting|fade-in|fade-in-quick|fade-out|fade-in-slow|fade-out-slow|wipe-in|first-out)\b/g, "").replace(/\s+/g, " ").trim();
       incoming.className = incoming.className.replace(/\b(active|entering|exiting|fade-in|fade-in-quick|fade-out|fade-in-slow|fade-out-slow|wipe-in|slide-active|first-out)\b/g, "").replace(/\s+/g, " ").trim();
 
-      if (current === 0) {
+      if (isForwardFromFirst) {
         const fadeOutDuration = 500;
         const fadeInDuration = 600;
 
@@ -998,8 +1113,10 @@
             incoming.classList.remove("entering", "fade-in-quick");
             incoming.classList.add("active");
             current = nextIndex;
-            document.querySelectorAll(".dot").forEach((dot, index) => dot.classList.toggle("active", index === current));
+            isTransitioning = false;
+            updateDots();
             restartProgress();
+            scheduleNext();
           }, fadeInDuration);
         }, fadeOutDuration);
 
@@ -1029,12 +1146,37 @@
         incoming.classList.add("active");
         outgoing.style.opacity = "";
         current = nextIndex;
-        document.querySelectorAll(".dot").forEach((dot, index) => dot.classList.toggle("active", index === current));
+        isTransitioning = false;
+        updateDots();
         restartProgress();
+        scheduleNext();
       }, transitionDuration);
     }
 
-    setInterval(advance, 8000);
+    prevButton.addEventListener("click", () => {
+      goToSlide((current - 1 + slides.length) % slides.length);
+    });
+
+    nextButton.addEventListener("click", () => {
+      goToSlide((current + 1) % slides.length);
+    });
+
+    pauseButton.addEventListener("click", () => {
+      setPaused(!isPaused);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        goToSlide((current - 1 + slides.length) % slides.length);
+      }
+      if (event.key === "ArrowRight") {
+        goToSlide((current + 1) % slides.length);
+      }
+      if (event.key === " ") {
+        event.preventDefault();
+        setPaused(!isPaused);
+      }
+    });
   </script>
 </body>
 </html>

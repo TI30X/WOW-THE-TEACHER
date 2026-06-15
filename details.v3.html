@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Die dunkle Seite des Mondes – Vertiefung</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a18'/%3E%3Ccircle cx='46' cy='18' r='12' fill='%23C9A84C'/%3E%3Ccircle cx='51' cy='18' r='12' fill='%230a0a18'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='900' fill='%23f5f0e8'%3ETZ%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -334,6 +335,71 @@
       color: var(--muted);
     }
 
+    .work-status {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 72px;
+      padding: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(201,168,76,0.18);
+      background:
+        radial-gradient(circle at top right, rgba(201,168,76,0.12), transparent 46%),
+        rgba(6,6,16,0.86);
+      color: white;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+    }
+
+    .tvz-mark {
+      min-width: 126px;
+      align-self: stretch;
+      display: grid;
+      align-content: center;
+      padding-right: 28px;
+      border-right: 2px solid rgba(201,168,76,0.24);
+    }
+
+    .tvz-logo {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--parchment);
+    }
+
+    .tvz-name {
+      margin-top: 9px;
+      font-family: "Cormorant Garamond", serif;
+      color: rgba(245,240,232,0.68);
+      font-size: 15px;
+      line-height: 1.1;
+    }
+
+    .work-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--parchment);
+      line-height: 1.2;
+    }
+
+    .work-subtitle {
+      margin-top: 7px;
+      font-family: "DM Mono", monospace;
+      color: rgba(245,240,232,0.64);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .work-subtitle.coop {
+      color: rgba(201,168,76,0.72);
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
       main { width: calc(100% - 32px); }
@@ -341,6 +407,12 @@
       .phase-num { font-size: 52px; }
       .interp-card { padding: 24px 22px; }
       .name-legend { grid-template-columns: 1fr 1fr; }
+      .work-status { grid-template-columns: 1fr; }
+      .tvz-mark {
+        border-right: 0;
+        border-bottom: 2px solid rgba(201,168,76,0.24);
+        padding: 0 0 14px;
+      }
     }
     @media (max-width: 480px) {
       .name-legend { grid-template-columns: 1fr; }
@@ -463,7 +535,7 @@
       <ellipse cx="408" cy="550" rx="33" ry="9" fill="#06060c"/>
       <ellipse cx="672" cy="550" rx="33" ry="9" fill="#06060c"/>
     </svg>
-    <p class="road-caption">«Ich bin nicht mehr hier. Ich bin der Wald. Der Wind. Das Licht. Alles fliesst.», Urs Blank, auf dem Weg in die Dunkelheit</p>
+    <p class="road-caption">Urs Blank auf dem Weg in die Dunkelheit: Wald, Licht und Kontrollverlust.</p>
   </section>
 
   <!-- ══ 5 PHASEN ══ -->
@@ -475,7 +547,7 @@
         <div class="phase-num">01</div>
         <div class="phase-body">
           <h2 class="phase-title">Loslassen &amp; Eintauchen <span class="tag">Auslöser</span></h2>
-          <p class="phase-text">Urs Blank ist Wirtschaftsanwalt, erfolgreich, kontrolliert, verheiratet. Auf einer Wanderung im Berner Oberland kostet er erstmals Psilocybin-Pilze. Kein Plan. Kein Stress. Der Alltag verliert seinen Griff.</p>
+          <p class="phase-text">Urs Blank ist Wirtschaftsanwalt, erfolgreich, kontrolliert und lebt mit Evelyne Vogt zusammen. Durch Lucille Roth, die er an ihrem Flohmarktstand kennenlernt, gerät er in die Welt der halluzinogenen Pilze. Bei einem Ausflug zu einer Gruppe auf einem alten Gehöft kostet er erstmals Psilocybin-Pilze. Der Alltag verliert seinen Griff.</p>
         </div>
       </div>
 
@@ -483,7 +555,7 @@
         <div class="phase-num">02</div>
         <div class="phase-body">
           <h2 class="phase-title">Die Natur wird zu mir <span class="tag">Verwandlung</span></h2>
-          <p class="phase-text">Blank zieht sich immer öfter in den Wald zurück. Er gibt seinen Job auf, verlässt seine Frau Evelyne. Die Grenze zwischen Mensch und Natur löst sich auf. Er lebt im Wald, jagt, überlebt, und trifft Lucille.</p>
+          <p class="phase-text">Nach dem Pilztrip verändert sich Blank immer stärker: Er vernachlässigt Termine, verliert im Beruf die Kontrolle und wird Evelyne fremd, bis sie die Trennung verlangt. Später flieht er in den Wald, eignet sich Survival-Kenntnisse an, jagt und überlebt dort allein.</p>
         </div>
       </div>
 
@@ -491,7 +563,9 @@
         <div class="phase-num">03</div>
         <div class="phase-body">
           <h2 class="phase-title">Kontrollverlust <span class="tag">Wendepunkt</span></h2>
-          <p class="phase-text">Der Drogenrausch eskaliert. Blanks Wahrnehmung bricht auf: Metaphern wie «Treibgut auf den Wellen» und «Herbstblatt im Wind» zeigen: Er bestimmt nichts mehr. Immer schneller. Runter, runter, runter. Die Welt, eine Achterbahn ohne Bremsen.</p>
+          <p class="phase-text">Der Drogenrausch eskaliert. Blanks Wahrnehmung bricht auf: Metaphern wie «Treibgut auf den Wellen» (S. 114) und «Herbstblatt im Wind» (S. 114) zeigen: Er bestimmt nichts mehr. «Immer schneller, immer schneller» (S. 115). «Runter, runter, runter» (S. 115). «Die Welt war eine Achterbahn» (S. 115) ohne Bremsen.</p>
+          <p class="phase-quote">«Treibgut auf den Wellen» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 114</span></p>
+          <p class="phase-quote">«Herbstblatt im Wind» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 114</span></p>
           <p class="phase-quote">«Blank war ein Meteor.» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 115</span></p>
         </div>
       </div>
@@ -500,7 +574,10 @@
         <div class="phase-num">04</div>
         <div class="phase-body">
           <h2 class="phase-title">Teilchen des Universums <span class="tag">Auflösung</span></h2>
-          <p class="phase-text">Er ist nicht mehr Blank. Er ist ein Teil von allem, endlos, zeitlos, Energie. Religiöse Symbole wie «Lux aeterna» und «Amen» geben dem Trip spirituelle Tiefe. Das Ich löst sich vollständig auf.</p>
+          <p class="phase-text">Er ist nicht mehr Blank. Er ist ein «Teilchen des Universums» (S. 118), endlos, zeitlos, Energie. Religiöse Symbole wie «Lux aeterna» (S. 118) und «Amen» (S. 118) geben dem Trip spirituelle Tiefe. Das Ich löst sich vollständig auf.</p>
+          <p class="phase-quote">«Teilchen des Universums» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 118</span></p>
+          <p class="phase-quote">«Lux aeterna» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 118</span></p>
+          <p class="phase-quote">«Amen» <span style="font-style:normal;font-size:0.8em;opacity:0.6;letter-spacing:0.1em;font-family:'DM Mono',monospace;">S. 118</span></p>
         </div>
       </div>
 
@@ -508,7 +585,7 @@
         <div class="phase-num">05</div>
         <div class="phase-body">
           <h2 class="phase-title">Nachklang: Schuld &amp; Tod <span class="tag">Konsequenz</span></h2>
-          <p class="phase-text">Der Trip ist vorbei. Aber Blank ist nicht mehr derselbe, und er wird schuldig. Im Wald tötet er. Pius Ott, sein Feind und Jäger, wird zum Opfer. Was als Suche nach dem echten Selbst begann, endet im Mord. Mehr Herz. Weniger Maske. Und schuldig.</p>
+          <p class="phase-text">Der Trip ist vorbei. Aber Blank ist nicht mehr derselbe, und er wird schuldig. Er tötet, flieht vor der Polizei und sucht im Wald nach dem seltenen Pilz. Am Ende wird nicht Ott zum Mordopfer: Ott erschießt Blank, wird aber kurz darauf von Blaser verhaftet.</p>
         </div>
       </div>
 
@@ -522,19 +599,19 @@
 
       <article class="interp-card romantik">
         <h3>Romantik &amp; Zivilisationsflucht</h3>
-        <p>Blanks Rückzug in den Wald ist mehr als persönliche Krise, sondern eine literarische Zivilisationsflucht, wie sie die Romantik kannte. Die Natur spiegelt Blanks innere Zustände wider: Sie ist kein Idyll, sondern Spiegel. Bilder wie «Tannen und Fichten wie Algen» und «Treibgut auf den Wellen» zeigen die für die Romantik typische Verschmelzung von Mensch und Natur.</p>
-        <p>Der Kontrollverlust und das Sich-treiben-Lassen entsprechen dem romantischen Primat des Gefühls über die Vernunft. Religiöse und mystische Elemente wie «Lux aeterna» und das Lichtmotiv spiegeln die romantische Sehnsucht nach etwas Höherem, Spirituellem und Unendlichem. Suter zeigt aber: Die Natur erlöst nicht. Sie entblösst.</p>
+        <p>Blanks Rückzug in den Wald ist mehr als persönliche Krise, sondern eine literarische Zivilisationsflucht, wie sie die Romantik kannte. Die Natur spiegelt Blanks innere Zustände wider: Sie ist kein Idyll, sondern Spiegel. Bilder wie «Tannen und Fichten wie Algen» (S. 117) und «Treibgut auf den Wellen» (S. 114) zeigen die für die Romantik typische Verschmelzung von Mensch und Natur.</p>
+        <p>Der Kontrollverlust und das Sich-treiben-Lassen entsprechen dem romantischen Primat des Gefühls über die Vernunft. Religiöse und mystische Elemente wie «Lux aeterna» (S. 118) und das «helle, klare, saubere Licht» (S. 116) spiegeln die romantische Sehnsucht nach etwas Höherem, Spirituellem und Unendlichem. Suter zeigt aber: Die Natur erlöst nicht. Sie entblösst.</p>
         <div class="beispiele">
-          <span class="beispiel-tag">Tannen wie Algen · S.117</span>
-          <span class="beispiel-tag">Treibgut auf den Wellen · S.114</span>
-          <span class="beispiel-tag">Lux aeterna · S.118</span>
-          <span class="beispiel-tag">Herbstblatt im Wind · S.114</span>
+          <span class="beispiel-tag">Tannen wie Algen · S. 117</span>
+          <span class="beispiel-tag">Treibgut auf den Wellen · S. 114</span>
+          <span class="beispiel-tag">Lux aeterna · S. 118</span>
+          <span class="beispiel-tag">Herbstblatt im Wind · S. 114</span>
         </div>
       </article>
 
       <article class="interp-card doppel">
         <h3>Doppelgängermotiv &amp; Identitätsverlust</h3>
-        <p>Urs Blank trägt von Anfang an zwei Identitäten: den kontrollierten Wirtschaftsanwalt nach aussen und das triebgesteuerte Naturwesen nach innen. Die Psilocybin-Erfahrung hebt die Schwelle zwischen beiden auf: das Verdrängte kehrt zurück und übernimmt.</p>
+        <p>Urs Blank trägt von Anfang an zwei Identitäten: den kontrollierten Wirtschaftsanwalt nach aussen und das triebgesteuerte Naturwesen nach innen. Die Psilocybin-Erfahrung (S. 119) hebt die Schwelle zwischen beiden auf: das Verdrängte kehrt zurück und übernimmt.</p>
         <p>Sein Name ist Programm: <em>blank</em> bedeutet leer, unbeschrieben, offen, er hat keine feste Identität, er ist das, was die Umgebung aus ihm macht. «Ursus» verweist auf den Bären: ein Tier, das jagt, tötet, überlebt. Die Namenssymbolik verdichtet Blanks gesamten Bogen: von der leeren Fassade bis zum Raubtier im Wald.</p>
         <div class="beispiele">
           <span class="beispiel-tag">blank = leer · unbeschrieben</span>
@@ -546,15 +623,18 @@
 
       <article class="interp-card stilistik">
         <h3>Stilistik &amp; Sprachliche Mittel</h3>
-        <p>Suter setzt Sprache präzise als Stimmungsinstrument ein. Suter häuft sich Wiederholungen: «Immer schneller, immer schneller» und «runter, runter, runter» erzeugen Tempo und zeigen den Kontrollverlust durch Form, nicht nur durch Inhalt. Kurze Hauptsätze («Er spielte nicht. Er hatte keine Lust.») verstärken Blanks Passivität.</p>
-        <p>Metaphern wie «Blank war ein Meteor» und «Die Welt war eine Achterbahn» machen das Irrationale sinnlich erfahrbar. Religiöse Symbole («Lux aeterna», «Amen») geben dem Trip spirituelle Dimension. Die kühle, distanzierte Erzählhaltung Suters macht den psychologischen Absturz umso wirkungsvoller, gerade weil er nicht wertet.</p>
+        <p>Suter setzt Sprache präzise als Stimmungsinstrument ein. Suter häuft Wiederholungen: «Immer schneller, immer schneller» (S. 115) und «runter, runter, runter» (S. 115) erzeugen Tempo und zeigen den Kontrollverlust durch Form, nicht nur durch Inhalt. Kurze Hauptsätze («Er spielte nicht. Er hatte keine Lust.», S. 113) verstärken Blanks Passivität.</p>
+        <p>Metaphern wie «Blank war ein Meteor» (S. 115) und «Die Welt war eine Achterbahn» (S. 115) machen das Irrationale sinnlich erfahrbar. Religiöse Symbole («Lux aeterna», «Amen», beide S. 118) geben dem Trip spirituelle Dimension. Weitere Bilder wie «wie eine beschworene Kobra» (S. 117) und «wie ein Taucher» (S. 117) zeigen, wie stark Blank fremdgesteuert und entrückt wirkt.</p>
         <div class="beispiele">
-          <span class="beispiel-tag">Wiederholung</span>
-          <span class="beispiel-tag">Metapher</span>
-          <span class="beispiel-tag">Kurze Hauptsätze</span>
-          <span class="beispiel-tag">Lichtsymbolik</span>
-          <span class="beispiel-tag">Religiöse Symbole</span>
-          <span class="beispiel-tag">Kontrast</span>
+          <span class="beispiel-tag">Kurze Hauptsätze · S. 113</span>
+          <span class="beispiel-tag">Treibgut / Herbstblatt · S. 114</span>
+          <span class="beispiel-tag">Immer schneller · S. 115</span>
+          <span class="beispiel-tag">Achterbahn / Meteor · S. 115</span>
+          <span class="beispiel-tag">Lichtsymbolik · S. 116</span>
+          <span class="beispiel-tag">Kobra / Taucher · S. 117</span>
+          <span class="beispiel-tag">Lux aeterna / Amen · S. 118</span>
+          <span class="beispiel-tag">Psilocybin · S. 119</span>
+          <span class="beispiel-tag">Kontrast · S. 120</span>
         </div>
       </article>
 
@@ -585,7 +665,7 @@
             <stop offset="0"   stop-color="#0f2824"/>
             <stop offset="100%" stop-color="#060e0c"/>
           </radialGradient>
-          <!-- Stäubli -->
+          <!-- Wenger -->
           <radialGradient id="gStaeubli" cx="50%" cy="40%" r="60%">
             <stop offset="0"   stop-color="#101830"/>
             <stop offset="100%" stop-color="#06090f"/>
@@ -616,7 +696,7 @@
         <line x1="432" y1="335" x2="412" y2="330" stroke="#4a9080" stroke-width="2" stroke-dasharray="12,8" opacity=".7"/>
         <line x1="288" y1="302" x2="268" y2="297" stroke="#4a9080" stroke-width="2" stroke-dasharray="12,8" opacity=".7"/>
 
-        <!-- Blank ↔ Stäubli: (428,450)→(409,457) · gap · (281,505)→(262,512) -->
+        <!-- Blank ↔ Wenger: (428,450)→(409,457) · gap · (281,505)→(262,512) -->
         <line x1="428" y1="450" x2="409" y2="457" stroke="#5070a0" stroke-width="2" stroke-dasharray="4,10" opacity=".65"/>
         <line x1="281" y1="505" x2="262" y2="512" stroke="#5070a0" stroke-width="2" stroke-dasharray="4,10" opacity=".65"/>
 
@@ -633,8 +713,8 @@
         <line x1="768" y1="210" x2="818" y2="232" stroke="#7040a0" stroke-width="1.5" stroke-dasharray="5,12" opacity=".35"/>
 
         <!-- ── TEXT LABELS — centred in the gap, not touching either segment ── -->
-        <text class="rel-label" x="522" y="244" text-anchor="end">Verführung · Erleuchtung</text>
-        <text class="rel-label" x="350" y="313">Ehe · Kontrolle</text>
+        <text class="rel-label" x="522" y="244" text-anchor="end">neue Welt · Pilztrip</text>
+        <text class="rel-label" x="350" y="313">Beziehung · Ordnung</text>
         <text class="rel-label" x="345" y="478">Therapie · Vernunft</text>
         <text class="rel-label" x="735" y="478">Bedrohung · Rache</text>
         <text class="rel-label" x="730" y="313">Verwandlung · Trieb</text>
@@ -660,13 +740,13 @@
         <circle cx="190" cy="265" r="78" fill="url(#gEvelyne)" stroke="#4a9080" stroke-width="3"/>
         <text class="node-name" x="190" y="243">EVELYNE</text>
         <text class="node-name" x="190" y="265">VOGT</text>
-        <text class="node-role" x="190" y="287">Ehefrau · Ordnung</text>
+        <text class="node-role" x="190" y="287">Partnerin · Ordnung</text>
 
-        <!-- 4 · DR. STÄUBLI — lower left -->
+        <!-- 4 · ALFRED WENGER — lower left -->
         <circle cx="190" cy="565" r="74" fill="url(#gStaeubli)" stroke="#5070a0" stroke-width="3"/>
-        <text class="node-name" x="190" y="543">DR.</text>
-        <text class="node-name" x="190" y="565">STÄUBLI</text>
-        <text class="node-role" x="190" y="587">Psychiater · Vernunft</text>
+        <text class="node-name" x="190" y="543">ALFRED</text>
+        <text class="node-name" x="190" y="565">WENGER</text>
+        <text class="node-role" x="190" y="587">Psychoanalytiker · Vernunft</text>
 
         <!-- 5 · PIUS OTT — lower right -->
         <circle cx="890" cy="565" r="78" fill="url(#gOtt)" stroke="#8b2020" stroke-width="3"/>
@@ -687,27 +767,27 @@
         <div class="name-card blank">
           <strong>Urs Blank</strong>
           <span class="symbolik">blank = leer · unbeschrieben · Ursus = Bär</span>
-          <p>Sein Name ist Programm. «Blank» bedeutet leer, offen, frei von Inhalt. Sie ist eine unbeschriebene Fläche, die sich durch äussere Einflüsse neu schreibt. «Ursus» verweist auf den Bären: das Raubtier, das im Wald lebt und tötet.</p>
+          <p>Sein Name ist Programm. «Blank» bedeutet leer, offen, frei von Inhalt. Er wirkt wie eine unbeschriebene Fläche, die sich durch äussere Einflüsse neu schreibt. «Ursus» verweist auf den Bären: das Raubtier, das im Wald lebt und tötet.</p>
         </div>
         <div class="name-card lucille">
           <strong>Lucille Roth</strong>
           <span class="symbolik">Lucilla = die Leuchtende · Roth = rot = Neuanfang</span>
-          <p>Lucille bringt Licht in Blanks dunkle Transformation. Ihr Name steht für Erleuchtung und Erkenntnis , gleichzeitig für Gefahr. «Roth» steht in der Hindukultur für Neuanfänge und weibliche Stärke, aber auch für Blut und Gefahr.</p>
+          <p>Lucille öffnet Blank eine neue Welt: über sie lernt er die Gruppe um Joe Gasser und die halluzinogenen Pilze kennen. Ihr Name lässt sich mit Licht verbinden; «Roth» kann als Farbsignal für Begehren, Gefahr und Blut gelesen werden.</p>
         </div>
         <div class="name-card evelyne">
           <strong>Evelyne Vogt</strong>
           <span class="symbolik">Vogt = Aufseher · Kontrolleurin</span>
-          <p>Sie verkörpert das bürgerliche Leben, das Urs «haben sollte»: Stabilität, Erfolg, Ordnung. Der Name «Vogt» bedeutet historisch Aufseher und Verwalter. Aussen elegant, innen kontrollierend: sie ist Blanks Wächterin der Normalität.</p>
+          <p>Sie verkörpert das bürgerliche Leben, in dem Urs zunächst steht: Luxus, Routine, Ordnung. Der Name «Vogt» bedeutet historisch Aufseher und Verwalter. Sie ist keine Ehefrau, sondern seine Lebensgefährtin, von der er sich zunehmend entfremdet.</p>
         </div>
         <div class="name-card staeubli">
-          <strong>Dr. Stäubli</strong>
+          <strong>Alfred Wenger</strong>
           <span class="symbolik">Stimme der gesellschaftlichen Vernunft</span>
-          <p>Als Psychiater repräsentiert Stäubli die rationale Gegenwelt zu Blanks Drogenrausch. Er erklärt den Trip wissenschaftlich, deutet ihn als «religiöse Bewusstseinserweiterung», und scheitert daran, Blank zurückzuholen.</p>
+          <p>Als Psychoanalytiker und alter Studienfreund repräsentiert Wenger die rationale Gegenwelt zu Blanks Drogenrausch. Er empfiehlt einen kontrollierten zweiten Trip, scheitert aber daran, Blank zurückzuholen.</p>
         </div>
         <div class="name-card ott">
           <strong>Pius Ott</strong>
           <span class="symbolik">Pius = fromm (Ironie) · Ott = Besitz · Erbe</span>
-          <p>Sein Name ist eine Ironie: «Pius» bedeutet fromm und pflichtbewusst, das Gegenteil seines Charakters. Ott ist kalt, rücksichtslos, rachsüchtig. Er verfolgt Blank als Jäger und wird zum Opfer seines eigenen Racheplans.</p>
+          <p>Sein Name ist eine Ironie: «Pius» bedeutet fromm und pflichtbewusst, das Gegenteil seines Charakters. Ott ist kalt, rücksichtslos, rachsüchtig. Er verfolgt Blank als Jäger, erschießt ihn am Ende und wird danach verhaftet.</p>
         </div>
         <div class="name-card ich">
           <strong>Das dunkle Ich</strong>
@@ -718,6 +798,18 @@
 
     </div>
   </section>
+
+  <footer class="work-status" aria-label="Projektcredit">
+    <div class="tvz-mark">
+      <div class="tvz-logo">TvZ</div>
+      <div class="tvz-name">Timothy van Zanten</div>
+    </div>
+    <div>
+      <div class="work-title">Die dunkle Seite des Mondes</div>
+      <div class="work-subtitle">Vertiefung · Literaturprojekt · KSA</div>
+      <div class="work-subtitle coop">In Kooperation mit Nikolai Anderson</div>
+    </div>
+  </footer>
 
 </main>
 </body>
