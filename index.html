@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Die dunkle Seite des Mondes - Orell Füssli Display</title>
+  <title>Die dunkle Seite des Mondes - Schulprojekt</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a18'/%3E%3Ccircle cx='46' cy='18' r='12' fill='%23C9A84C'/%3E%3Ccircle cx='51' cy='18' r='12' fill='%230a0a18'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='900' fill='%23f5f0e8'%3ETZ%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -273,7 +273,27 @@
       letter-spacing: 0.25em;
     }
 
-    .brand-strip .left { font-size: 24px; }
+    .brand-strip .left {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 24px;
+    }
+
+    .of-logo-small {
+      width: 210px;
+      height: auto;
+      padding: 10px 14px;
+      border-radius: 3px;
+      background: #fff;
+      display: block;
+    }
+
+    .brand-note {
+      color: rgba(245, 240, 232, 0.72);
+      letter-spacing: 0.16em;
+    }
+
     .brand-strip .right { font-size: 18px; opacity: 0.6; }
 
     .mono-label {
@@ -645,7 +665,7 @@
       left: 0;
       bottom: 78px;
       width: 100%;
-      padding: 54px 80px 48px;
+      padding: 44px 80px 42px;
       background: rgba(0, 0, 0, 0.38);
       text-align: center;
       z-index: 3;
@@ -658,18 +678,26 @@
       letter-spacing: 0.28em;
     }
 
-    .store {
-      margin-top: 12px;
-      font-family: "Playfair Display", serif;
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--gold);
+    .store-logo-frame {
+      width: 500px;
+      max-width: 100%;
+      margin: 20px auto 0;
+      padding: 18px 26px;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    .of-logo {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .store-sub {
-      margin-top: 8px;
+      margin-top: 16px;
       font-family: "Cormorant Garamond", serif;
-      font-size: 28px;
+      font-size: 25px;
       font-style: italic;
       color: rgba(245, 240, 232, 0.6);
     }
@@ -809,7 +837,7 @@
 </head>
 <body>
   <div class="stage-shell">
-  <main id="display" aria-label="Digitale Buchwerbung für Die dunkle Seite des Mondes">
+  <main id="display" aria-label="Schulprojekt-Buchpräsentation für Die dunkle Seite des Mondes">
     <section class="slide slide-1 night-bg active">
       <div class="stars"></div>
       <svg class="moon" viewBox="0 0 120 120" style="top: 170px; right: 145px;">
@@ -821,7 +849,7 @@
         <path d="M0 215 L24 150 L50 215 L88 132 L118 215 L150 145 L186 215 L230 120 L268 215 L300 138 L340 215 L380 118 L425 215 L470 142 L510 215 L545 128 L590 215 L635 136 L675 215 L720 115 L765 215 L804 144 L850 215 L895 125 L935 215 L970 150 L1015 215 L1050 135 L1080 215 V250 H0 Z" fill="#0d0d1a"/>
       </svg>
       <div class="content">
-        <div class="brand-strip fade-up" style="--delay: 200ms;"><span class="left">ORELL FÜSSLI · BUCHHANDLUNG</span><span class="right">EMPFEHLUNG · JUNI 2026</span></div>
+        <div class="brand-strip fade-up" style="--delay: 200ms;"><span class="left"><img class="of-logo-small" width="801" height="153" alt="Orell Füssli Logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Logo_Orell_F%C3%BCssli.svg"><span class="brand-note">BUCHHANDLUNG</span></span><span class="right">SCHULPROJEKT · JUNI 2026</span></div>
         <div class="hero">
           <div class="author fade-up" style="--delay: 400ms;">MARTIN SUTER</div>
           <div class="title-line fade-up" style="--delay: 600ms;">Die dunkle Seite</div>
@@ -954,9 +982,9 @@
       </div>
       <a class="qr-panel" href="https://ti30x.github.io/WOW-THE-TEACHER/details.v3.html" aria-label="Mehr Informationen zu Die dunkle Seite des Mondes"><img class="qr-image" width="174" height="174" alt="QR-Code zu https://ti30x.github.io/WOW-THE-TEACHER/details.v3.html" src="https://api.qrserver.com/v1/create-qr-code/?size=174x174&amp;margin=10&amp;data=https%3A%2F%2Fti30x.github.io%2FWOW-THE-TEACHER%2Fdetails.v3.html"><span class="qr-text">MEHR INFOS<br>ONLINE LESEN</span></a>
       <div class="store-strip">
-        <div class="available">JETZT ERHÄLTLICH BEI</div>
-        <div class="store">ORELL FÜSSLI</div>
-        <div class="store-sub">Buchhandlung · Schweiz</div>
+        <div class="available">BUCHHANDLUNG / BEZUGSBEISPIEL</div>
+        <div class="store-logo-frame"><img class="of-logo" width="801" height="153" alt="Orell Füssli Logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Logo_Orell_F%C3%BCssli.svg"></div>
+        <div class="store-sub">Schulprojekt · keine Werbung · nicht von Orell Füssli beauftragt</div>
       </div>
     </section>
 
