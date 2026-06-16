@@ -32,9 +32,9 @@
     }
 
     main {
-      width: min(1100px, calc(100% - 48px));
+      width: min(960px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 56px 0 100px;
+      padding: 42px 0 76px;
     }
 
     a { color: var(--gold); text-decoration: none; }
@@ -51,7 +51,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 72px 0 60px;
+      padding: 54px 0 45px;
       border-bottom: 1px solid rgba(201,168,76,0.22);
     }
     .kicker {
@@ -60,11 +60,11 @@
       letter-spacing: 0.3em;
       color: var(--gold);
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     h1 {
       max-width: 900px;
-      margin: 0 0 24px;
+      margin: 0 0 18px;
       font-family: "Playfair Display", serif;
       font-size: clamp(52px, 8vw, 104px);
       line-height: 0.93;
@@ -83,7 +83,7 @@
 
     /* ── ROAD SCENE ── */
     .road-visual {
-      margin: 52px 0 60px;
+      margin: 39px 0 45px;
       overflow: hidden;
       border-radius: 3px;
       line-height: 0;
@@ -91,7 +91,7 @@
     }
     .road-scene { display: block; width: 100%; height: auto; }
     .road-caption {
-      padding: 20px 30px;
+      padding: 15px 22px;
       background: rgba(6,6,16,0.88);
       font-size: clamp(18px, 2.2vw, 24px);
       font-style: italic;
@@ -108,20 +108,20 @@
       letter-spacing: 0.3em;
       color: var(--gold);
       text-transform: uppercase;
-      margin: 0 0 36px;
-      padding-bottom: 12px;
+      margin: 0 0 27px;
+      padding-bottom: 9px;
       border-bottom: 1px solid rgba(201,168,76,0.2);
     }
 
     /* ── 5 PHASEN ── */
-    .phases { margin: 0 0 80px; }
+    .phases { margin: 0 0 60px; }
     .phase-list { display: flex; flex-direction: column; gap: 0; }
 
     .phase-item {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0 32px;
-      padding: 28px 0;
+      grid-template-columns: 60px 1fr;
+      gap: 0 24px;
+      padding: 21px 0;
       border-bottom: 1px solid rgba(245,240,232,0.07);
       align-items: start;
     }
@@ -145,7 +145,7 @@
       font-style: italic;
       font-weight: 700;
       color: var(--parchment);
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       line-height: 1.15;
     }
     .phase-title .tag {
@@ -156,7 +156,7 @@
       letter-spacing: 0.2em;
       color: var(--gold);
       text-transform: uppercase;
-      margin-left: 14px;
+      margin-left: 11px;
       vertical-align: middle;
       opacity: 0.8;
     }
@@ -168,8 +168,8 @@
       margin: 0;
     }
     .phase-quote {
-      margin: 10px 0 0;
-      padding-left: 16px;
+      margin: 8px 0 0;
+      padding-left: 12px;
       border-left: 2px solid rgba(201,168,76,0.4);
       font-style: italic;
       font-size: clamp(15px, 1.8vw, 19px);
@@ -184,11 +184,11 @@
     .phase-item:nth-child(5) .phase-num { color: rgba(139,32,32,0.28); }
 
     /* ── INTERPRETATIONEN ── */
-    .interpretations { margin: 0 0 80px; }
-    .interp-list { display: flex; flex-direction: column; gap: 20px; }
+    .interpretations { margin: 0 0 60px; }
+    .interp-list { display: flex; flex-direction: column; gap: 15px; }
 
     .interp-card {
-      padding: 32px 36px;
+      padding: 24px 27px;
       background: rgba(245,240,232,0.03);
       border: 1px solid rgba(245,240,232,0.07);
       position: relative;
@@ -198,7 +198,7 @@
       content: '';
       position: absolute;
       left: 0; top: 0; bottom: 0;
-      width: 5px;
+      width: 4px;
     }
     .interp-card.romantik::before  { background: var(--teal); }
     .interp-card.doppel::before    { background: var(--gold); }
@@ -208,7 +208,7 @@
       font-family: "Playfair Display", serif;
       font-size: clamp(22px, 2.8vw, 30px);
       font-style: italic;
-      margin: 0 0 16px;
+      margin: 0 0 12px;
       line-height: 1.2;
     }
     .romantik  h3 { color: var(--teal); }
@@ -220,21 +220,21 @@
       font-weight: 300;
       line-height: 1.72;
       color: var(--muted);
-      margin: 0 0 16px;
+      margin: 0 0 12px;
     }
     .interp-card p:last-child { margin: 0; }
 
     .beispiele {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 6px;
+      margin-top: 11px;
     }
     .beispiel-tag {
       font-family: "DM Mono", monospace;
       font-size: 12px;
       letter-spacing: 0.12em;
-      padding: 5px 13px;
+      padding: 4px 10px;
       border: 1px solid currentColor;
       border-radius: 2px;
       opacity: 0.7;
@@ -244,11 +244,11 @@
     .stilistik .beispiel-tag { color: var(--blue); }
 
     /* ── FIGURENKONSTELLATION ── */
-    .constellation-section { margin: 0 0 80px; }
+    .constellation-section { margin: 0 0 60px; }
     .constellation-wrap {
       background: rgba(6,6,18,0.6);
       border: 1px solid rgba(201,168,76,0.16);
-      padding: 8px;
+      padding: 6px;
     }
     .constellation {
       display: block;
@@ -294,11 +294,11 @@
     .name-legend {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 20px;
+      gap: 12px;
+      margin-top: 15px;
     }
     .name-card {
-      padding: 22px 24px;
+      padding: 17px 18px;
       background: rgba(0,0,0,0.22);
       border-top: 2px solid transparent;
     }
@@ -316,7 +316,7 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--parchment);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .name-card .symbolik {
       font-family: "DM Mono", monospace;
@@ -325,7 +325,7 @@
       color: var(--gold);
       opacity: 0.8;
       display: block;
-      margin-bottom: 9px;
+      margin-bottom: 7px;
     }
     .name-card p {
       margin: 0;
@@ -338,10 +338,10 @@
     .work-status {
       display: grid;
       grid-template-columns: auto 1fr;
-      gap: 24px;
+      gap: 18px;
       align-items: center;
-      margin-top: 72px;
-      padding: 22px;
+      margin-top: 54px;
+      padding: 17px;
       border-radius: 6px;
       border: 1px solid rgba(201,168,76,0.18);
       background:
@@ -352,11 +352,11 @@
     }
 
     .tvz-mark {
-      min-width: 126px;
+      min-width: 95px;
       align-self: stretch;
       display: grid;
       align-content: center;
-      padding-right: 28px;
+      padding-right: 21px;
       border-right: 2px solid rgba(201,168,76,0.24);
     }
 
@@ -369,7 +369,7 @@
     }
 
     .tvz-name {
-      margin-top: 9px;
+      margin-top: 7px;
       font-family: "Cormorant Garamond", serif;
       color: rgba(245,240,232,0.68);
       font-size: 15px;
@@ -385,7 +385,7 @@
     }
 
     .work-subtitle {
-      margin-top: 7px;
+      margin-top: 5px;
       font-family: "DM Mono", monospace;
       color: rgba(245,240,232,0.64);
       font-size: 13px;
@@ -402,16 +402,16 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      main { width: calc(100% - 32px); }
-      .phase-item { grid-template-columns: 56px 1fr; gap: 0 18px; }
+      main { width: calc(100% - 24px); }
+      .phase-item { grid-template-columns: 42px 1fr; gap: 0 14px; }
       .phase-num { font-size: 52px; }
-      .interp-card { padding: 24px 22px; }
+      .interp-card { padding: 18px 17px; }
       .name-legend { grid-template-columns: 1fr 1fr; }
       .work-status { grid-template-columns: 1fr; }
       .tvz-mark {
         border-right: 0;
         border-bottom: 2px solid rgba(201,168,76,0.24);
-        padding: 0 0 14px;
+        padding: 0 0 11px;
       }
     }
     @media (max-width: 480px) {
